@@ -1,0 +1,65 @@
+/* FeaturedProperties.css */
+.featured-properties {
+    margin-top: 40px;
+  }
+  
+  .property-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .property-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 100px;
+  }
+  
+  .property-image-1 {
+      background-image: url('./apartment_ny.jpg');
+      width: 100%;
+      height: 0;
+      padding-top: 75%; /* Adjust this value to control the aspect ratio */
+      background-size: cover;
+      background-position: center;
+      border-radius: 4px;
+    
+    
+  }
+  .property-image-2 {
+    background-image: url('./house_la.jpg');
+    width: 100%;
+    height: 0;
+    padding-top: 75%; /* Adjust this value to control the aspect ratio */
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    
+  }
+  
+  .property-details {
+    margin-top: 10px;
+  }
+  
+  .property-details h3 {
+    margin: 0;
+  }
+  
+  .property-details p {
+    margin: 5px 0;
+  }
+  
+  .property-details button {
+    padding: 8px 16px;
+    background-color: #7F5AF0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .property-details button:hover {
+    background-color: #6331f8;
+  }
+  
