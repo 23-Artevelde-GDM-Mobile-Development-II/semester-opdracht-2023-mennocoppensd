@@ -1,6 +1,5 @@
 import Header from "../../../../Design/Public/Header/Header";
 import Hero from "../../../../Design/Public/Hero/Hero";
-import SearchForm from '../../../../Design/Public/SearchForm/SearchForm';
 import FeaturedProperties from '../../../../Design/Public/FeaturedProperties/FeaturedProperties';
 import HowItWorks from "../../../../Design/Public/HowItWorks/HowItWorks";
 import Testimonials from "../../../../Design/Public/Testimonials/Testimonials";
@@ -20,10 +19,10 @@ const LandingPage = () => {
     <>
       <Header onLogout={handleLogout} />
       <Hero />
-      <section>
+      {/* <section>
         <h2>Search Properties</h2>
         <SearchForm />
-      </section>
+      </section> */}
       <FeaturedProperties />
       <HowItWorks />
       <Testimonials />

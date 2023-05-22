@@ -5,6 +5,7 @@ import Container from "../../../Design/Container/Container";
 import Input from "../../../Design/Input/Input";
 import Title from "../../../Design/Title/Title";
 import useMutation from "../../../../core/hooks/useMutation";
+import { Link } from "react-router-dom";
 
 
 const LoginScreen = ({ onLogin }) => {
@@ -38,7 +39,7 @@ const LoginScreen = ({ onLogin }) => {
 
   return (
     <Container>
-      <Title>Inloggen</Title>
+      <Title>Sign in</Title>
       <form onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
         <label htmlFor="username">Username</label>
@@ -49,6 +50,7 @@ const LoginScreen = ({ onLogin }) => {
           Login
         </Button>
       </form>
+      <p>Don't have an account? <Link to="/register">Register here</Link></p>
     </Container>
   );
 };
