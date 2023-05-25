@@ -15,7 +15,8 @@ const PropertyInfo = ({ property }) => {
         <img src={property.image} alt={property.title} />
         <h1>{formatName(property)}</h1>
         <p>{property.title}</p>
-        <p>{property.username}</p>
+        <p>{property.squareMeters}</p>
+        <p>{property.estateOffice}</p>
       </div>
     </div>
   );

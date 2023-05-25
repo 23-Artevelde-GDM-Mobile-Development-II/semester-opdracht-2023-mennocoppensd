@@ -76,7 +76,6 @@ authRouter.post("/properties", async (req, res) => {
   const property = {
     image:
       "https://picsum.photos/200/300",
-      title: property.title,
     ...req.body,
   };
 

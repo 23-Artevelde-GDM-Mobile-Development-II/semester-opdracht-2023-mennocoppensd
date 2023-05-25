@@ -19,6 +19,11 @@
   font-weight: bold;
 }
 
+.logo:hover {
+  text-decoration: none;
+  color: #7F5AF0;
+}
+
 .nav-menu ul {
   list-style: none;
   margin: 0;
@@ -34,6 +39,7 @@
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  padding-left: 2em;
 }
 
 .nav-menu ul li a:hover {

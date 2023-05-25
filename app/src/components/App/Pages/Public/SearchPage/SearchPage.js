@@ -2,7 +2,7 @@ import Header from "../../../../Design/Public/Header/Header";
 import SearchForm from '../../../../Design/Public/SearchForm/SearchForm';
 import Footer from "../../../../Design/Public/Footer/Footer";
 import { useAuthContext } from "../../../Auth/AuthContainer";
-import PropertiesOverview from "../../EstateOffice/PropertiesOverview";
+import PropertiesOverview from "../PublicPropertiesOverview";
 
 // Landingpage = header (design) with app logic
 const SearchPage = () => {

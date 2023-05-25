@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import "./ListItem.css";
 
 const ListItem = ({ title, img, onClick, href, children }) => {
+  
   if (href) {
     return (
       <div className="list-item">
