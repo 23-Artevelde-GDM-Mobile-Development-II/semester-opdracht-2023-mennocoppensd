@@ -9,7 +9,10 @@ import LandingPage from "./Pages/Public/LandingPage/LandingPage";
 import SearchPage from "./Pages/Public/SearchPage/SearchPage";
 import AddProperty from "./Pages/EstateOffice/AddProperty";
 import PropertyDetail from "./Pages/EstateOffice/Detail/PropertyDetail";
+import PublicPropertyDetail from "./Pages/Public/Detail/PublicPropertyDetail";
 import PropertiesOverview from "./Pages/EstateOffice/PropertiesOverview";
+import PublicPropertiesOverview from "./Pages/Public/PublicPropertiesOverview";
+import NotFound from "./Pages/NotFound/NotFound"
 
 const App = () => {
   return (
@@ -20,14 +23,23 @@ const App = () => {
         <Route path={AuthRoutes.Login} element={<LoginScreen />} />
         <Route path={AuthRoutes.Register} element={<RegisterScreen />} />
 
+
           {/* Public */}
         <Route path={BasicRoutes.Index} element={<LandingPage />} />
+        <Route path={BasicRoutes.Search} element={<SearchPage />} />
+        <Route path="/public" element={<PublicPropertiesOverview/>} />
+        <Route path="/public/:id/*" element={<PublicPropertyDetail />} />
+
+          <Route path="/" element={<Navigate to="/" />} />
+
+          {/* Estate Office */}
         <Route path={EstateRoutes.Search} element={<SearchPage />} />
           <Route path="/properties" element={<PropertiesOverview />} />
           <Route path="/properties/:id/*" element={<PropertyDetail />} />
           <Route path="/properties/add" element={<AddProperty />} />
-          <Route path="/" element={<Navigate to="/" />} />
-
+          
+          {/* not found path */}
+          <Route path={BasicRoutes.NotFound} element={<NotFound />} />
         </Routes>
 
     </AuthContainer>

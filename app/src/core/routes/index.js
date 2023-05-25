@@ -5,7 +5,7 @@ const AuthRoutes = {
   
   const BasicRoutes = { 
     Index: '/', 
-    NotFound: '/404'
+    NotFound: '/*'
     };
     
     const EstateRoutes = {

@@ -57,23 +57,7 @@ const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
       formData.append('photos', data.photos[i]);
     }
   
-    onSubmit(formData);
-  };
-
-  const handleForSaleClick = (e) => {
-    if (data.forSale) {
-      setData({ ...data, forSale: false });
-    } else {
-      setData({ ...data, forSale: true, forRent: false });
-    }
-  };
-  
-  const handleForRentClick = (e) => {
-    if (data.forRent) {
-      setData({ ...data, forRent: false });
-    } else {
-      setData({ ...data, forRent: true, forSale: false });
-    }
+    onSubmit(data);
   };
   
 
@@ -87,11 +71,11 @@ const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
       <option value="apartment">Apartment</option>
       <option value="condo">Condo</option>
     </select>
-    <label htmlFor="forSale">For Sale</label>
-<Input type="checkbox" name="forSale" checked={data.forSale} onChange={handleForSaleClick} />
-<label htmlFor="forRent">For Rent</label>
-<Input type="checkbox" name="forRent" checked={data.forRent} onChange={handleForRentClick} />
-
+    <label htmlFor="salerent">Sale / Rent</label>
+      <select name="salerent" value={data.forSale} onChange={handleChange} className="property-form-select">
+      <option value="forSale">For Sale</option>
+      <option value="forRent">For Rent</option>
+    </select>
       <label htmlFor="estateOffice">Estate Office</label>
       <Input name="estateOffice" value={data.estateOffice} onChange={handleChange} />
       <label htmlFor="yearBuilt">Year Built</label>

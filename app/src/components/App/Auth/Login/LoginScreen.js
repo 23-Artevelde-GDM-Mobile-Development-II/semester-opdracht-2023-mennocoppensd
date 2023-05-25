@@ -1,22 +1,18 @@
 import { useState } from "react";
-
 import Button from "../../../Design/Button/Button";
-import Container from "../../../Design/Container/Container";
 import Input from "../../../Design/Input/Input";
 import Title from "../../../Design/Title/Title";
 import useMutation from "../../../../core/hooks/useMutation";
 import { Link } from "react-router-dom";
-
+import styles from "./LoginScreen.module.css";
 
 const LoginScreen = ({ onLogin }) => {
-
   const { isLoading, error, mutate } = useMutation();
 
   const [data, setData] = useState({
     username: "",
     password: "",
   });
-
 
   const handleChange = (e) => {
     setData({
@@ -38,20 +34,27 @@ const LoginScreen = ({ onLogin }) => {
   };
 
   return (
-    <Container>
-      <Title>Sign in</Title>
-      <form onSubmit={handleSubmit}>
-        {error && <p>{error}</p>}
-        <label htmlFor="username">Username</label>
-        <Input name="username" value={data.username} onChange={handleChange} />
-        <label htmlFor="password">Password</label>
-        <Input name="password" type="password"  value={data.password} onChange={handleChange} />
-        <Button type="submit" disabled={isLoading}>
-          Login
-        </Button>
-      </form>
-      <p>Don't have an account? <Link to="/register">Register here</Link></p>
-    </Container>
+    <div className={styles.containerLogin}>
+      <Link to="/" className={styles.linkBack}>&lt; Back</Link>
+      <Title className={styles.title}>Sign in</Title>
+      <div className={styles["form-container"]}>
+        <form onSubmit={handleSubmit}>
+          {error && <p>{error}</p>}
+          <label htmlFor="username">Username / Email</label>
+          <Input name="username" value={data.username} onChange={handleChange} onLogin={onLogin} />
+          <label htmlFor="password">Password</label>
+          <Input name="password" type="password" value={data.password} onChange={handleChange} onLogin={onLogin} />
+          <Button className="btn-login" type="submit" disabled={isLoading} onLogin={onLogin}>
+            Login
+          </Button>
+        </form>
+      </div>
+      <div className={styles["register-link-container"]}>
+        <p>
+          Don't have an account? <Link to="/register">Register here</Link>
+        </p>
+      </div>
+    </div>
   );
 };
 
