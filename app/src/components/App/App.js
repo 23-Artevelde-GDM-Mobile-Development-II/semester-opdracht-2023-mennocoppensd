@@ -17,12 +17,11 @@ import NotFound from "./Pages/NotFound/NotFound"
 const App = () => {
   return (
     <AuthContainer>
+      {/* Header */}
         <Routes>
 
-        {/* Login screen */ }
-        <Route path={AuthRoutes.Login} element={<LoginScreen />} />
-        <Route path={AuthRoutes.Register} element={<RegisterScreen />} />
-
+      
+{/* localStorage.clear() in console om uit te loggen, nog een log uit knop voorzien */}
 
           {/* Public */}
         <Route path={BasicRoutes.Index} element={<LandingPage />} />
@@ -43,6 +42,7 @@ const App = () => {
         </Routes>
 
     </AuthContainer>
+    // Alle componenten waar geen login voor nodig is buiten AuthContainer
   );
 };
 

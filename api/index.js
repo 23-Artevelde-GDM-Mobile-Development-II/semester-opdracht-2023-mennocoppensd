@@ -4,6 +4,12 @@ import express from "express";
 import { ObjectId } from "mongodb";
 import { initClient } from "./db/mongo.js";
 import { registerMiddleware } from "./middleware/index.js";
+import { createUserData } from "./middleware/auth/hash.js";
+import { registerRoutes } from "./routes/routes.js";
+import passport from "passport";
+import LocalStrategy from "./middleware/auth/LocalStrategy.js";
+import JwtStrategy from "./middleware/auth/JwtStrategy.js";
+import jwt from "jsonwebtoken";
 
 // create an Express app
 const app = express();
@@ -11,30 +17,55 @@ const app = express();
 // set the port for the server to listen on
 const port = 3003;
 
+// register routes
+
 // register middleware
 registerMiddleware(app);
+
+app.use(passport.initialize());
+
+passport.use("local", LocalStrategy);
+
+passport.use("jwt", JwtStrategy);
+
 
 // initialize MongoDB client and database
 const client = await initClient();
 const db = client.db();
 
-// define a route to handle user login
-app.post("/login", async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+app.post("/register", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    // Check if the username already exists
+    const existingUser = await db.collection("users").findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: "Username already exists" });
+    }
 
-  // check if user exists in the database
-  let user = await db.collection("users").findOne({ username, password });
+    // Create a new user
+    const newUser = createUserData({ username, password })
 
-  // if not, add user to the database
-  if (!user) {
-    await db.collection("users").insertOne({ username, password });
-    user = await db.collection("users").findOne({ username, password });
+    // Insert the user into the database
+    await db.collection("users").insertOne(newUser);
+
+    // Generate a new token for the registered user
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN_HOURS * 60,
+    });
+
+    delete newUser.password
+    delete newUser.salt
+    delete newUser.saltParam
+    res.json({ token, ...newUser });
+    
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: "Internal Server Error" });
+
   }
-
-  // send back the user object
-  res.json(user);
 });
+
+registerRoutes(app);
 
 // define a router for authenticated routes
 const authRouter = express.Router();
