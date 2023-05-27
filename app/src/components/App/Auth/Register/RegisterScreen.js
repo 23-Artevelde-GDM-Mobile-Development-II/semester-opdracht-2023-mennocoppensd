@@ -26,8 +26,9 @@ const RegisterScreen = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+console.log(process.env.REACT_APP_API_URL);
 
-    mutate(`${process.env.REACT_APP_API_URL}/login`, {
+    mutate(`${process.env.REACT_APP_API_URL}/register`, {
       method: "POST",
       data,
       onSuccess: (data) => {

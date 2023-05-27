@@ -1,7 +1,6 @@
 import { Route, Routes, useParams } from "react-router-dom";
 import Loading from "../../../../Design/Loading/Loading";
 import PublicProperty from "../PublicProperty";
-import Header from "../../../../Design/Public/Header/Header";
 import PropertyInfo from "./PublicPropertyInfo";
 import useFetch from "../../../../../core/hooks/useFetch";
 
