@@ -1,28 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
-import useMutation from "../../../../core/hooks/useMutation";
-import Title from "../../../Design/Title/Title";
-import PropertyForm from "./Form/PropertyForm";
 
-const AddProperty = () => {
+
+import UserForm from "./Form/UserForm";
+import Title from "../../../../Design/Title/Title";
+import useMutation from "../../../../../core/hooks/useMutation";
+
+const AddUser = () => {
   const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();
 
   const handleSubmit = (data) => {
-    mutate(`${process.env.REACT_APP_API_URL}/properties`, {
+    mutate(`${process.env.REACT_APP_API_URL}/users`, {
       method: "POST",
       data,
       onSuccess: () => {
-        navigate(`/properties`);
+        navigate(`/users`);
       },
     });
   };
 
   return (
     <>
-      <Link to="/admin">&lt; Back</Link>
-      <Title>Add property</Title>
+      <Link to="/">&lt; Back</Link>
+      <Title>Add user</Title>
       {error && <p>{error}</p>}
-      <PropertyForm
+      <UserForm
         onSubmit={handleSubmit}
         isDisabled={isLoading}
         label="Create"
@@ -31,4 +33,4 @@ const AddProperty = () => {
   );
 };
 
-export default AddProperty;
+export default AddUser;

@@ -13,6 +13,13 @@ import PublicPropertyDetail from "./Pages/Public/Detail/PublicPropertyDetail";
 import PropertiesOverview from "./Pages/EstateOffice/PropertiesOverview";
 import PublicPropertiesOverview from "./Pages/Public/PublicPropertiesOverview";
 import NotFound from "./Pages/NotFound/NotFound"
+import UsersOverview from "./Pages/Admin/Users/UsersOverview";
+import UserDetail from "./Pages/Admin/Users/Detail/UserDetail";
+import AddUser from "./Pages/Admin/Users/AddUser";
+import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import EstateOfficesOverview from "./Pages/Admin/EstateOffices/EstateOfficesOverview";
+import EstateOfficeDetail from "./Pages/Admin/EstateOffices/Detail/EstateOfficeDetail";
+import AddEstateOffice from "./Pages/Admin/EstateOffices/AddEstateOffice";
 
 const App = () => {
   return (
@@ -20,22 +27,36 @@ const App = () => {
       {/* Header */}
         <Routes>
 
+          {/* Auth */}
+          {/* <Route path={AuthRoutes.Login} element={<LoginScreen />} />
+          <Route path={AuthRoutes.Register} element={<RegisterScreen />} /> */}
+
+      {/* Public */}
+    <Route path={BasicRoutes.Index} element={<LandingPage />} />
+    <Route path={BasicRoutes.Search} element={<SearchPage />} />
+    <Route path="/public" element={<PublicPropertiesOverview/>} />
+    <Route path="/public/:id/*" element={<PublicPropertyDetail />} />
+
+      <Route path="/" element={<Navigate to="/" />} />
       
 {/* localStorage.clear() in console om uit te loggen, nog een log uit knop voorzien */}
 
-          {/* Public */}
-        <Route path={BasicRoutes.Index} element={<LandingPage />} />
-        <Route path={BasicRoutes.Search} element={<SearchPage />} />
-        <Route path="/public" element={<PublicPropertiesOverview/>} />
-        <Route path="/public/:id/*" element={<PublicPropertyDetail />} />
 
-          <Route path="/" element={<Navigate to="/" />} />
-
-          {/* Estate Office */}
+          {/* Estate Office Routes */}
         <Route path={EstateRoutes.Search} element={<SearchPage />} />
-          <Route path="/properties" element={<PropertiesOverview />} />
-          <Route path="/properties/:id/*" element={<PropertyDetail />} />
-          <Route path="/properties/add" element={<AddProperty />} />
+        <Route path={EstateRoutes.PropertiesOverview} element={<AuthContainer><PropertiesOverview /></AuthContainer>} />
+        <Route path={EstateRoutes.PropertiesDetail} element={<AuthContainer><PropertyDetail /></AuthContainer>} />
+        <Route path={EstateRoutes.AddProperty} element={<AuthContainer><AddProperty /></AuthContainer>} />
+
+          {/* Admin */}
+        <Route path={AdminRoutes.EstateOfficesOverview} element={<AuthContainer><EstateOfficesOverview /></AuthContainer>} />
+        <Route path={AdminRoutes.EstateOfficesDetail} element={<AuthContainer><EstateOfficeDetail /></AuthContainer>} />
+        <Route path={AdminRoutes.AddEstateOffice} element={<AuthContainer><AddEstateOffice /></AuthContainer>} />
+
+        <Route path={AdminRoutes.dashboard} element={<AuthContainer><AdminDashboard /></AuthContainer>} />
+        <Route path={AdminRoutes.UsersOverview} element={<AuthContainer><UsersOverview /></AuthContainer>} />
+        <Route path={AdminRoutes.UsersDetail} element={<AuthContainer><UserDetail /></AuthContainer>} />
+        <Route path={AdminRoutes.AddUser} element={<AuthContainer><AddUser /></AuthContainer>} />
           
           {/* not found path */}
           <Route path={BasicRoutes.NotFound} element={<NotFound />} />

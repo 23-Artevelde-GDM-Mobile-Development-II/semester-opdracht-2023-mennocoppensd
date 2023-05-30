@@ -1,7 +1,7 @@
 import { roles } from './constants';
 
 const formatName = (user) => {
-  return `${user.name} ${user.surname}`;
+  return `${user.username}`;
 };
 
 

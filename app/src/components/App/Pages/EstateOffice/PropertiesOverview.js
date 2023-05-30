@@ -5,6 +5,8 @@ import Button from "../../../Design/Button/Button";
 import { formatName } from "../../../../core/modules/properties/utils";
 import DeletePropertyButton from "./Delete/DeletePropertyButton";
 import useFetch from "../../../../core/hooks/useFetch";
+import Header from "../../../Design/Public/Header/Header";
+import { Link } from "react-router-dom";
 
 const PropertiesOverview = () => {
   const {
@@ -29,6 +31,9 @@ const PropertiesOverview = () => {
   console.log(properties);
   return (
     <>
+    <Header />
+    <Link to="/admin" >&lt; Back</Link>
+      <h1>Properties</h1>
       <div className="flex flex-end">
         <Button color="primary" href="add">
           Add

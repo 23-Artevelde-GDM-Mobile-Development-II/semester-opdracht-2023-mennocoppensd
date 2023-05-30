@@ -53,6 +53,8 @@ const registerAdminRoutes = (app) => {
 
     adminRouter.use(passport.authenticate("jwt", { session: false, failWithError: true }));
 
+    // properties routes
+
     adminRouter.post("/properties", async (req, res) => {
         const property = {
           image: "https://picsum.photos/200/300",
@@ -98,7 +100,7 @@ const registerAdminRoutes = (app) => {
       }
     });
       
-    adminRouter.delete("/properties/:id", async (req, res) => {
+    adminRouter.delete("/properties/:id/*", async (req, res) => {
         const id = req.params.id;
       
         await db.collection("properties").deleteOne({
@@ -107,6 +109,134 @@ const registerAdminRoutes = (app) => {
       
         res.json({});
       });
+
+      // Estate Offices
+      adminRouter.post("/estate-offices", async (req, res) => {
+        const estateOffice = {
+          image: null,
+          ...req.body,
+        };
+      
+        if (req.files && req.files.image) {
+          estateOffice.image = req.files.image.data;
+        }
+      
+        await db.collection("estate-offices").insertOne(estateOffice);
+      
+        res.json(estateOffice);
+      });
+      
+    adminRouter.patch("/estate-offices/:id", async (req, res) => {
+        const id = req.params.id;
+        const estateOffice = await db.collection("estate-offices").findOne({
+          _id: new ObjectId(id),
+        });
+
+
+        if (estateOffice) {
+          const { _id, ...data } = req.body;
+          const newData = { ...estateOffice, ...data };
+          await db.collection("estate-offices").replaceOne(
+            { _id: new ObjectId(id) },
+            newData
+          );
+      
+          res.json(newData);
+        } else {
+          res.status(404).json({ error: "Not found" });
+        }
+      });
+
+    adminRouter.get("/estate-offices/:id", async (req, res) => {
+      const id = req.params.id;
+      const estateOffice = await db.collection("estate-offices").findOne({
+        _id: new ObjectId(id),
+      });
+
+      if (estateOffice) {
+        res.json(estateOffice);
+      } else {
+        res.status(404).json({ error: "Not found" });
+      }
+    });
+      
+    adminRouter.delete("/estate-offices/:id", async (req, res) => {
+        const id = req.params.id;
+      
+        await db.collection("estate-offices").deleteOne({
+          _id: new ObjectId(id),
+        });
+      
+        res.json({});
+      });
+      
+      app.get("/estate-offices", async (req, res) => {
+        const estateOffices = await db.collection("estate-offices").find().toArray();
+        res.json(estateOffices);
+      });
+
+      // Users
+
+      adminRouter.post("/users", async (req, res) => {
+        const user = {
+          image: "https://picsum.photos/200/300",
+          ...req.body,
+        };
+      
+        await db.collection("users").insertOne(user);
+      
+        res.json(user);
+      });
+      
+    adminRouter.patch("/users/:id", async (req, res) => {
+        const id = req.params.id;
+        const user = await db.collection("users").findOne({
+          _id: new ObjectId(id),
+        });
+
+
+        if (user) {
+          const { _id, ...data } = req.body;
+          const newData = { ...user, ...data };
+          await db.collection("users").replaceOne(
+            { _id: new ObjectId(id) },
+            newData
+          );
+      
+          res.json(newData);
+        } else {
+          res.status(404).json({ error: "Not found" });
+        }
+      });
+
+    adminRouter.get("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const user = await db.collection("users").findOne({
+        _id: new ObjectId(id),
+      });
+
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).json({ error: "Not found" });
+      }
+    });
+      
+    adminRouter.delete("/users/:id", async (req, res) => {
+        const id = req.params.id;
+      
+        await db.collection("users").deleteOne({
+          _id: new ObjectId(id),
+        });
+      
+        res.json({});
+      });
+
+      app.get("/users", async (req, res) => {
+        const users = await db.collection("users").find().toArray();
+        res.json(users);
+      });
+
 
     app.use(adminRouter);
 

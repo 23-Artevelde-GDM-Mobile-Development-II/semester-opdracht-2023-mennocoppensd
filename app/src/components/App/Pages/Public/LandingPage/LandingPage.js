@@ -9,11 +9,14 @@ import { useAuthContext } from "../../../Auth/AuthContainer";
 import MapWithHeading from "../../Map/MapWithHeading";
 
 // Landingpage = header (design) with app logic
-const LandingPage = () => {
-  const { logout } = useAuthContext();
+const LandingPage = ( ) => {
+  const { user, logout } = useAuthContext() || { user: null, logout: null }; // add a default value
+  // destructure 'user' too
 
   const handleLogout = () => {
-    logout();
+    if (user) {  // check if user is authenticated
+      logout();
+    }
   };
 
   return (
