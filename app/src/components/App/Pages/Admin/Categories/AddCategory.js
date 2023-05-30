@@ -1,20 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 
 
-import EstateOfficeForm from "./Form/EstateOfficeForm";
+import CategoryForm from "./Form/CategoryForm";
 import Title from "../../../../Design/Title/Title";
 import useMutation from "../../../../../core/hooks/useMutation";
 
-const AddEstateOffice = () => {
+const AddCategory = () => {
   const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();
 
   const handleSubmit = (data) => {
-    mutate(`${process.env.REACT_APP_API_URL}/estate-offices`, {
+    mutate(`${process.env.REACT_APP_API_URL}/categories`, {
       method: "POST",
       data,
       onSuccess: () => {
-        navigate(`/estate-offices`);
+        navigate(`/categories`);
       },
     });
   };
@@ -22,9 +22,9 @@ const AddEstateOffice = () => {
   return (
     <>
       <Link to="/admin">&lt; Back</Link>
-      <Title>Add estate office</Title>
+      <Title>Add category</Title>
       {error && <p>{error}</p>}
-      <EstateOfficeForm
+      <CategoryForm
         onSubmit={handleSubmit}
         isDisabled={isLoading}
         label="Create"
@@ -33,4 +33,4 @@ const AddEstateOffice = () => {
   );
 };
 
-export default AddEstateOffice;
+export default AddCategory;

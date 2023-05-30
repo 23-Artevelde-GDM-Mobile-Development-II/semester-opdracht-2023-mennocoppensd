@@ -20,6 +20,10 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import EstateOfficesOverview from "./Pages/Admin/EstateOffices/EstateOfficesOverview";
 import EstateOfficeDetail from "./Pages/Admin/EstateOffices/Detail/EstateOfficeDetail";
 import AddEstateOffice from "./Pages/Admin/EstateOffices/AddEstateOffice";
+import CategoriesOverview from "./Pages/Admin/Categories/CategoriesOverview";
+import CategoryDetail from "./Pages/Admin/Categories/Detail/CategoryDetail";
+import AddCategory from "./Pages/Admin/Categories/AddCategory";
+import FavoritesPage from "./Pages/LoggedIn/Favorites/FavoritesPage";
 
 const App = () => {
   return (
@@ -36,6 +40,7 @@ const App = () => {
     <Route path={BasicRoutes.Search} element={<SearchPage />} />
     <Route path="/public" element={<PublicPropertiesOverview/>} />
     <Route path="/public/:id/*" element={<PublicPropertyDetail />} />
+    <Route path={BasicRoutes.Favorites} element={<AuthContainer> <FavoritesPage /> </AuthContainer>} />
 
       <Route path="/" element={<Navigate to="/" />} />
       
@@ -57,6 +62,10 @@ const App = () => {
         <Route path={AdminRoutes.UsersOverview} element={<AuthContainer><UsersOverview /></AuthContainer>} />
         <Route path={AdminRoutes.UsersDetail} element={<AuthContainer><UserDetail /></AuthContainer>} />
         <Route path={AdminRoutes.AddUser} element={<AuthContainer><AddUser /></AuthContainer>} />
+
+        <Route path={AdminRoutes.CategoriesOverview} element={<AuthContainer><CategoriesOverview /></AuthContainer>} />
+        <Route path={AdminRoutes.CategoriesDetail} element={<AuthContainer>< CategoryDetail /></AuthContainer>} />
+        <Route path={AdminRoutes.AddCategory} element={<AuthContainer><AddCategory /></AuthContainer>} />
           
           {/* not found path */}
           <Route path={BasicRoutes.NotFound} element={<NotFound />} />

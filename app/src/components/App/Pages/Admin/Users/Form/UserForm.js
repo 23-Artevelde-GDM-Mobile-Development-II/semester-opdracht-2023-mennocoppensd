@@ -48,6 +48,7 @@ const UserForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
       <Input name="password" value={data.password} onChange={handleChange} />
       <label htmlFor="role">Role</label>
       <select name="role" value={data.role} onChange={handleChange} className="user-form-select">
+      <option value="">Select a role</option> {/* Add an empty option */}
         {roles.map((role, index) => (
           <option key={index} value={Object.values(role)[0]}>{Object.keys(role)[0]}</option>
         ))}

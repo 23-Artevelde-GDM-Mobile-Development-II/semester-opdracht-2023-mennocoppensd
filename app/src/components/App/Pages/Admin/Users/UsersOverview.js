@@ -46,7 +46,7 @@ const UsersOverview = () => {
           href={`/users/${String(user._id)}`} // Convert user._id to a string
           key={String(user._id)} // Convert user._id to a string
           img={user.image}
-          title={formatName(user)}
+          title={`${formatName(user)} - ${user.role}`} // Include the user's role in the title
         >
           <DeleteUserButton id={String(user._id)} onSuccess={handleDeleteSuccess} /> 
           </ListItem>

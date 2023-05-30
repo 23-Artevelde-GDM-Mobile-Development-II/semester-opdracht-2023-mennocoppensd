@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faSignInAlt, faSignOutAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
 import Container from '../../Container/Container';
 import './Header.css';
 import { useAuthContext } from '../../../App/Auth/AuthContainer';
@@ -18,9 +18,15 @@ const Header = () => {
                 <FontAwesomeIcon icon={faSearch} />
               </Link>
             </li>
+            {user && (
+              <li>
+                <Link to="/favorites">
+                  <FontAwesomeIcon icon={faHeart} />
+                </Link>
+              </li>
+            )}
             <li>
-            {
-                user 
+              {user 
                 ? <a href="/" onClick={logout}><FontAwesomeIcon icon={faSignOutAlt} /> Log out</a> 
                 : <Link to="/login"><FontAwesomeIcon icon={faSignInAlt} /></Link>
               }
