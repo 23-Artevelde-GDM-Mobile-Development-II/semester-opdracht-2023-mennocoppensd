@@ -2,25 +2,31 @@ import Header from "../../../../Design/Public/Header/Header";
 import SearchForm from '../../../../Design/Public/SearchForm/SearchForm';
 import Footer from "../../../../Design/Public/Footer/Footer";
 import { useAuthContext } from "../../../Auth/AuthContainer";
-import PropertiesOverview from "../PublicPropertiesOverview";
+import PublicPropertiesOverview from "../PublicPropertiesOverview";
+import useFetch from "../../../../../core/hooks/useFetch";
 
 // Landingpage = header (design) with app logic
 const SearchPage = () => {
-  const { logout } = useAuthContext();
+  const { user, logout } = useAuthContext();
+  const { data: categories = [], isLoading, error } = useFetch("/categories");
 
   const handleLogout = () => {
     logout();
   };
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <>
       <Header onLogout={handleLogout} />
       <section>
         <h2>Search Properties</h2>
-        <SearchForm />
+        <SearchForm categories={categories} />
         
       </section>
-      <PropertiesOverview />
+      <PublicPropertiesOverview userId={user._id} />
       <Footer />
     </>
   );

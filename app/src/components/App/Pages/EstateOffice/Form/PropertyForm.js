@@ -3,7 +3,7 @@ import Button from "../../../../Design/Button/Button";
 import Input from "../../../../Design/Input/Input";
 import './PropertyForm.css'
 
-const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
+const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {}, categories = [] }) => {
   const [data, setData] = useState({
   squareMeters: '',
   type: '',
@@ -52,10 +52,7 @@ const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
     formData.append('amountBathrooms', data.amountBathrooms);
     formData.append('amountBedrooms', data.amountBedrooms);
     formData.append('price', data.price);
-  
-    for (let i = 0; i < data.photos.length; i++) {
-      formData.append('photos', data.photos[i]);
-    }
+    formData.append('image', data.image);
   
     onSubmit(data);
   };
@@ -67,12 +64,16 @@ const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
       <Input name="squareMeters" value={data.squareMeters} onChange={handleChange} />
       <label htmlFor="type">Type</label>
       <select name="type" value={data.type} onChange={handleChange} className="property-form-select">
-      <option value="house">House</option>
-      <option value="apartment">Apartment</option>
-      <option value="condo">Condo</option>
-    </select>
+        <option value="">Select a property type</option>
+        {categories.map((category) => (
+          <option key={category._id} value={category.name}>
+            {category.name}
+          </option>
+        ))}
+      </select>
     <label htmlFor="salerent">Sale / Rent</label>
       <select name="salerent" value={data.forSale} onChange={handleChange} className="property-form-select">
+      <option value="">Select for sale/ for rent</option> {/* Add an empty option */}
       <option value="forSale">For Sale</option>
       <option value="forRent">For Rent</option>
     </select>
@@ -93,7 +94,7 @@ const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
       <label htmlFor="price">Price</label>
       <Input name="price" value={data.price} onChange={handleChange} />
       <label htmlFor="photos">Photos</label>
-      <Input name="photos" value={data.photos} onChange={handleChange} />
+      <Input type="file" name="image" onChange={handleChange} />
       <br />
       
       <Button type="submit" disabled={isDisabled}>

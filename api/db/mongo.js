@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 // Import the required modules from the 'mongodb' package
 import { MongoClient, ServerApiVersion } from "mongodb";
 

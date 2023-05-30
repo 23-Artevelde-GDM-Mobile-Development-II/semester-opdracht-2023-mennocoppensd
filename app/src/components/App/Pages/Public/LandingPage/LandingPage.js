@@ -6,7 +6,7 @@ import Testimonials from "../../../../Design/Public/Testimonials/Testimonials";
 import ContactUs from "../../../../Design/Public/ContactUs/ContactUs";
 import Footer from "../../../../Design/Public/Footer/Footer";
 import { useAuthContext } from "../../../Auth/AuthContainer";
-import MapWithHeading from "../../Map/MapWithHeading";
+import MapWithHeading from "./Map/MapWithHeading";
 
 // Landingpage = header (design) with app logic
 const LandingPage = ( ) => {

@@ -3,14 +3,11 @@ import Input from "../../../../../Design/Input/Input";
 import Button from "../../../../../Design/Button/Button";
 // import multer from 'multer';
 
-import './EstateOfficeForm.css';
+import './CategoryForm.css';
 
-const EstateOfficeForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
+const CategoryForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
   const [data, setData] = useState({
     name: '',
-    email: '',
-    telephone: '',
-    image: null,
     ...initialData,
   });
 
@@ -33,9 +30,6 @@ const EstateOfficeForm = ({ onSubmit, isDisabled, label, initialData = {} }) => 
 
     const formData = new FormData();
     formData.append('name', data.name);
-    formData.append('email', data.email);
-    formData.append('telephone', data.telephone);
-    formData.append('image', data.image);
 
     // try {
     //   const response = await axios.post('/upload', formData, {
@@ -53,15 +47,10 @@ const EstateOfficeForm = ({ onSubmit, isDisabled, label, initialData = {} }) => 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="estateOffice-form">
+    <form onSubmit={handleSubmit} className="category-form">
       <label htmlFor="name">Name</label>
       <Input name="name" value={data.name} onChange={handleChange} />
-      <label htmlFor="email">Email</label>
-      <Input name="email" value={data.email} onChange={handleChange} />
-      <label htmlFor="telephone">Telephone</label>
-      <Input name="telephone" value={data.telephone} onChange={handleChange} />
-      <label htmlFor="image">Image</label>
-      <Input type="file" name="image" onChange={handleChange} />
+  
       <br />
 
       <Button type="submit" disabled={isDisabled}>
@@ -71,4 +60,4 @@ const EstateOfficeForm = ({ onSubmit, isDisabled, label, initialData = {} }) => 
   );
 };
 
-export default EstateOfficeForm;
+export default CategoryForm;

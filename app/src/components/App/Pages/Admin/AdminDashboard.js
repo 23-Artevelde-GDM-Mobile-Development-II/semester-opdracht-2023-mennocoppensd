@@ -32,6 +32,13 @@ const AdminDashboard = () => {
               View and manage all users
             </p>
           </Link>
+          <Link to="/categories" className="admin-dashboard-tile">
+            <span className="admin-dashboard-tile-icon">📄</span>
+            <h2 className="admin-dashboard-tile-title">Categories</h2>
+            <p className="admin-dashboard-tile-text">
+              View and manage all categories
+            </p>
+          </Link>
         </div>
         <div className="admin-dashboard-other-options">
           <Link to="/admin/settings" className="admin-dashboard-other-option">

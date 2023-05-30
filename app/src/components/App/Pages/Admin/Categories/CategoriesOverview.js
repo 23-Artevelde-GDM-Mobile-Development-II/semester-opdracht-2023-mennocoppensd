@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 import useFetch from "../../../../../core/hooks/useFetch";
-import { formatName } from "../../../../../core/modules/estateOffices/utils";
+import { formatName } from "../../../../../core/modules/categories/utils";
 import Button from "../../../../Design/Button/Button";
 import List from "../../../../Design/List/List";
 import ListItem from "../../../../Design/List/ListItem";
 import Loading from "../../../../Design/Loading/Loading";
 import Header from "../../../../Design/Public/Header/Header";
-import DeleteEstateOfficeButton from "./Delete/DeleteEstateOfficeButton";
+import DeleteCategoryButton from "./Delete/DeleteCategoryButton";
 
 
-const EstateOfficesOverview = () => {
+const CategoriesOverview = () => {
   const {
     isLoading,
     error,
     invalidate,
-    data: estateOffices,
-  } = useFetch("/estate-offices");
+    data: categories,
+  } = useFetch("/categories");
  
   if (error) {
     return <p>{error}</p>;
@@ -29,28 +29,26 @@ const EstateOfficesOverview = () => {
     invalidate();
   };
 
-  console.log(estateOffices);
+  console.log(categories);
   return (
     <>
     <Header />
     <Link to="/admin" >&lt; Back</Link>
-      <h1>Estate Offices</h1>
+      <h1>Categories</h1>
       <div className="flex flex-end">
         <Button color="primary" href="add">
           Add
         </Button>
       </div>
       <List>
-        {estateOffices.map((estateOffice) => (
+        {categories.map((category) => (
           <ListItem
-          href={`/estate-offices/${String(estateOffice._id)}`} // Convert estateOffice._id to a string
-          key={String(estateOffice._id)} // Convert estateOffice._id to a string
-          img={estateOffice.image}
-          title={formatName(estateOffice)}
+          href={`/categories/${String(category._id)}`} // Convert category._id to a string
+          key={String(category._id)} // Convert category._id to a string
+          img={category.image}
+          title={formatName(category)} // Include the user's role in the title
         >
-            <p>Email: {estateOffice.email}</p>
-            <p>Telephone: {estateOffice.telephone}</p>
-          <DeleteEstateOfficeButton id={String(estateOffice._id)} onSuccess={handleDeleteSuccess} /> 
+          <DeleteCategoryButton id={String(category._id)} onSuccess={handleDeleteSuccess} /> 
           </ListItem>
         ))}
       </List>
@@ -58,4 +56,4 @@ const EstateOfficesOverview = () => {
   );
 };
 
-export default EstateOfficesOverview;
+export default CategoriesOverview;

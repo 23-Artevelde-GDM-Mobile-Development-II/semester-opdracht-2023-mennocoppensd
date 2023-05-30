@@ -17,7 +17,8 @@ const EstateOfficeInfo = ({ estateOffice }) => {
         <img src={estateOffice.image} alt={estateOffice.title} />
         <h1>{formatName(estateOffice)}</h1>
         <p>{estateOffice.title}</p>
-        <p>{estateOffice.username}</p>
+        <p>{estateOffice.email}</p>
+        <p>{estateOffice.telephone}</p>
       </div>
     </div>
   );

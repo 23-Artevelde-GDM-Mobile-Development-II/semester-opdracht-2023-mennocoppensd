@@ -237,6 +237,76 @@ const registerAdminRoutes = (app) => {
         res.json(users);
       });
 
+        // define a route to get all categories
+    adminRouter.get("/categories", async (req, res) => {
+    console.log(req.category);
+    const categories = await db.collection("categories").find().toArray();
+    res.json(categories);
+    });
+
+    // define a route to add a new category
+    adminRouter.post("/categories", async (req, res) => {
+    const category = {
+      image:
+        "https://picsum.photos/200/300",
+      ...req.body,
+    };
+
+
+    await db.collection("categories").insertOne(category);
+
+    // return added category
+    res.json(category);
+    });
+
+    // define a route to get a category by id
+    adminRouter.get("/categories/:id", async (req, res) => {
+    const id = req.params.id;
+    const category = await db.collection("categories").findOne({
+      _id: ObjectId(id),
+    });
+
+    // if category exists, send back category object
+    if (category) {
+      res.json(category);
+    } else {
+      // if category not found, send back 404 error
+      res.status(404).json({ error: "Not found" });
+    }
+    });
+
+    // define a route to update a category by id
+    adminRouter.patch("/categories/:id", async (req, res) => {
+    const id = req.params.id;
+
+    // check if category exists
+    const category = await db
+      .collection("categories")
+      .findOne({ _id: ObjectId(id) });
+
+    // if category exists, update category data
+    if (category) {
+      const { _id, ...data } = req.body;
+      const newData = { ...category, ...data };
+      await db.collection("categories").replaceOne({ _id: ObjectId(id) }, newData);
+
+      res.json(newData);
+    } else {
+      res.status(404).json({ error: "Not found" });
+    }
+    });
+
+    // DELETE
+    adminRouter.delete("/categories/:id", async (req, res) => {
+    const id = req.params.id;
+
+    await db.collection("categories").deleteOne({
+      _id: ObjectId(id),
+    });
+
+    res.json({});
+    });
+
 
     app.use(adminRouter);
 

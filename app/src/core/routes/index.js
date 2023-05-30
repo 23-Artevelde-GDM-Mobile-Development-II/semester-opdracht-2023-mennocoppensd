@@ -6,6 +6,7 @@ const AuthRoutes = {
   const BasicRoutes = { 
     Index: '/', 
     NotFound: '/*',
+    Favorites: '/favorites',
 
     };
     
@@ -27,6 +28,11 @@ const AuthRoutes = {
     EstateOfficesOverview: '/estate-offices',
     EstateOfficesDetail: '/estate-offices/:id/*',
     AddEstateOffice: '/estate-offices/add',
+
+    // CRUD Categories
+    CategoriesOverview: '/categories',
+    CategoriesDetail: '/categories/:id/*',
+    AddCategory: '/categories/add',
 
   };
   // replaces : values with values from object

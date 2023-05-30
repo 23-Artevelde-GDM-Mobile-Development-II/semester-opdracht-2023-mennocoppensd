@@ -17,17 +17,17 @@ const regions = [
   "Walloon Brabant",
 ];
 
-const SearchForm = () => {
+const SearchForm = ({ categories }) => {
   const navigate = useNavigate();
-  const [propertyType, setPropertyType] = useState('');
-  const [region, setRegion] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-
+  const [propertyType, setPropertyType] = useState("");
+  const [region, setRegion] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  
   const handleRegionClick = (value) => {
     setRegion(value);
   };
-
+  
   const handleSearch = (e) => {
     e.preventDefault();
     // Construct the search query based on the user's inputs
@@ -35,24 +35,26 @@ const SearchForm = () => {
     // Redirect the user to the search results page with the query parameters
     navigate(`/search${query}`);
   };
-
+  
+  console.log(categories);
   return (
-      // <Container>
     <form className="search-form" onSubmit={handleSearch}>
       <label>
         Property Type:
         <select
-  className="search-input"
-  value={propertyType}
-  onChange={(e) => setPropertyType(e.target.value)}
->
-  <option value="house">House</option>
-  <option value="apartment">Apartment</option>
-  <option value="condo">Condo</option>
-</select>
+          className="search-input"
+          value={propertyType}
+          onChange={(e) => setPropertyType(e.target.value)}
+        >
+          <option value="">Select a property type</option> {/* Add an empty option */}
+          {categories.map((category) => (
+            <option key={category._id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </label>
-      <label>Region:
-        </label>
+      <label>Region:</label>
       <div className="region-tiles">
         {regions.map((value) => (
           <div
@@ -82,9 +84,10 @@ const SearchForm = () => {
           onChange={(e) => setMaxPrice(e.target.value)}
         />
       </label>
-      <button className="search-button" type="submit">Search</button>
+      <button className="search-button" type="submit">
+        Search
+      </button>
     </form>
-      // </Container>
   );
 };
 
