@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 import express from "express";
 import { ObjectId } from "mongodb";
 import { initClient } from "./db/mongo.js";
@@ -159,6 +157,145 @@ authRouter.delete("/properties/:id", async (req, res) => {
   const id = req.params.id;
 
   await db.collection("properties").deleteOne({
+    _id: ObjectId(id),
+  });
+
+  res.json({});
+});
+
+// define a route to get all estate offices
+authRouter.get("/estate-offices", async (req, res) => {
+  console.log(req.estateOffice);
+  const estateOffices = await db.collection("estate-offices").find().toArray();
+  res.json(estateOffices);
+});
+
+// define a route to add a new estate office
+authRouter.post("/estate-offices", async (req, res) => {
+  const estateOffice = {
+    image:
+      "https://picsum.photos/200/300",
+    ...req.body,
+  };
+
+
+  await db.collection("estate-offices").insertOne(estateOffice);
+
+  // return added estate office
+  res.json(estateOffice);
+});
+
+// define a route to get a estate office by id
+authRouter.get("/estate-offices/:id", async (req, res) => {
+  const id = req.params.id;
+  const estateOffice = await db.collection("estate-offices").findOne({
+    _id: ObjectId(id),
+  });
+
+  // if estate office exists, send back estate office object
+  if (estateOffice) {
+    res.json(estateOffice);
+  } else {
+    // if estate office not found, send back 404 error
+    res.status(404).json({ error: "Not found" });
+  }
+});
+
+// define a route to update a estate office by id
+authRouter.patch("/estate-offices/:id", async (req, res) => {
+  const id = req.params.id;
+
+  // check if estate office exists
+  const estateOffice = await db
+    .collection("estate-offices")
+    .findOne({ _id: ObjectId(id) });
+
+  // if estate office exists, update estate office data
+  if (estateOffice) {
+    const { _id, ...data } = req.body;
+    const newData = { ...estateOffice, ...data };
+    await db.collection("estate-offices").replaceOne({ _id: ObjectId(id) }, newData);
+
+    res.json(newData);
+  } else {
+    res.status(404).json({ error: "Not found" });
+  }
+});
+
+// DELETE
+authRouter.delete("/estate-offices/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await db.collection("estate-offices").deleteOne({
+    _id: ObjectId(id),
+  });
+
+  res.json({});
+});
+// define a route to get all users
+authRouter.get("/users", async (req, res) => {
+  console.log(req.user);
+  const users = await db.collection("users").find().toArray();
+  res.json(users);
+});
+
+// define a route to add a new user
+authRouter.post("/users", async (req, res) => {
+  const user = {
+    image:
+      "https://picsum.photos/200/300",
+    ...req.body,
+  };
+
+
+  await db.collection("users").insertOne(user);
+
+  // return added user
+  res.json(user);
+});
+
+// define a route to get a user by id
+authRouter.get("/users/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = await db.collection("users").findOne({
+    _id: ObjectId(id),
+  });
+
+  // if user exists, send back user object
+  if (user) {
+    res.json(user);
+  } else {
+    // if user not found, send back 404 error
+    res.status(404).json({ error: "Not found" });
+  }
+});
+
+// define a route to update a user by id
+authRouter.patch("/users/:id", async (req, res) => {
+  const id = req.params.id;
+
+  // check if user exists
+  const user = await db
+    .collection("users")
+    .findOne({ _id: ObjectId(id) });
+
+  // if user exists, update user data
+  if (user) {
+    const { _id, ...data } = req.body;
+    const newData = { ...user, ...data };
+    await db.collection("users").replaceOne({ _id: ObjectId(id) }, newData);
+
+    res.json(newData);
+  } else {
+    res.status(404).json({ error: "Not found" });
+  }
+});
+
+// DELETE
+authRouter.delete("/users/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await db.collection("users").deleteOne({
     _id: ObjectId(id),
   });
 

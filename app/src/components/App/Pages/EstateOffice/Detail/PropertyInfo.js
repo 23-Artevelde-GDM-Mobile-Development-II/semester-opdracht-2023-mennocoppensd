@@ -5,7 +5,7 @@ import Button from "../../../../Design/Button/Button";
 const PropertyInfo = ({ property }) => {
   return (
     <div>
-      <Link to="/">&lt; Back</Link>
+      <Link to="/admin">&lt; Back</Link>
       <div className="flex flex-end">
         <Button color="primary" href="edit">
           Edit

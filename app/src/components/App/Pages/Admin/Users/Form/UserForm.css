@@ -1,4 +1,4 @@
-.property-form {
+.user-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,12 +6,12 @@
     max-width: 500px;
   }
   
-  .property-form label {
+  .user-form label {
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
   
-  .property-form input, .property-form select {
+  .user-form input, .user-form select {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
@@ -21,7 +21,7 @@
     box-sizing: border-box;
   }
   
-  .property-form button {
+  .user-form button {
     padding: 0.5rem 1rem;
     background-color: #7F5AF0;
     color: #fff;
@@ -31,7 +31,7 @@
     cursor: pointer;
   }
   
-  .property-form button:disabled {
+  .user-form button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
   }

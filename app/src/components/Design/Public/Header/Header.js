@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Container from '../../Container/Container';
 import './Header.css';
+import { useAuthContext } from '../../../App/Auth/AuthContainer';
 
 const Header = () => {
+  const { user, logout } = useAuthContext();
   return (
     <header className="header">
       <Container>
@@ -12,15 +14,16 @@ const Header = () => {
         <nav className="nav-menu">
           <ul>
             <li>
-              <Link to="/search">
-                
+              <Link to="/search">   
                 <FontAwesomeIcon icon={faSearch} />
               </Link>
             </li>
             <li>
-              <Link to="/login">
-                <FontAwesomeIcon icon={faSignInAlt} />
-              </Link>
+            {
+                user 
+                ? <a href="/" onClick={logout}><FontAwesomeIcon icon={faSignOutAlt} /> Log out</a> 
+                : <Link to="/login"><FontAwesomeIcon icon={faSignInAlt} /></Link>
+              }
             </li>
           </ul>
         </nav>

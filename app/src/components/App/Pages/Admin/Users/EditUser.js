@@ -1,19 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
-import Title from "../../../Design/Title/Title";
-import PropertyForm from "./Form/PropertyForm";
-import useMutation from "../../../../core/hooks/useMutation";
 
-const EditProperty = ({ property, onUpdate }) => {
+import UserForm from "./Form/UserForm";
+
+import Title from "../../../../Design/Title/Title";
+import useMutation from "../../../../../core/hooks/useMutation";
+
+const EditUser = ({ user, onUpdate }) => {
   const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();
 
   const handleSubmit = (data) => {
-    mutate(`${process.env.REACT_APP_API_URL}/properties/${property._id}`, {
+    mutate(`${process.env.REACT_APP_API_URL}/users/${user._id}`, {
       method: "PATCH",
       data,
       onSuccess: () => {
         onUpdate();
-        navigate(`/properties/${property._id}`);
+        navigate(`/users/${user._id}`);
       },
     });
   };
@@ -21,16 +23,16 @@ const EditProperty = ({ property, onUpdate }) => {
   return (
     <>
       <Link to="/admin">&lt; Back</Link>
-      <Title>Edit property</Title>
+      <Title>Edit user</Title>
       {error && <p>{error}</p>}
-      <PropertyForm
+      <UserForm
         onSubmit={handleSubmit}
         isDisabled={isLoading}
         label="Save"
-        initialData={property}
+        initialData={user}
       />
     </>
   );
 };
 
-export default EditProperty;
+export default EditUser;

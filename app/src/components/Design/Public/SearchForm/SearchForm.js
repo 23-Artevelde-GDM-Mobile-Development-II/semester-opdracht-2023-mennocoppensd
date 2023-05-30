@@ -3,12 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import Container from '../../Container/Container';
 import './SearchForm.css';
 
+const regions = [
+  "All",
+  "Antwerp",
+  "Flemish Brabant",
+  "West Flanders",
+  "East Flanders",
+  "Hainaut",
+  "Liège",
+  "Limburg",
+  "Luxembourg",
+  "Namur",
+  "Walloon Brabant",
+];
+
 const SearchForm = () => {
   const navigate = useNavigate();
   const [propertyType, setPropertyType] = useState('');
   const [region, setRegion] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+
+  const handleRegionClick = (value) => {
+    setRegion(value);
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -23,22 +41,29 @@ const SearchForm = () => {
     <form className="search-form" onSubmit={handleSearch}>
       <label>
         Property Type:
-        <input
-          className="search-input"
-          type="text"
-          value={propertyType}
-          onChange={(e) => setPropertyType(e.target.value)}
-        />
+        <select
+  className="search-input"
+  value={propertyType}
+  onChange={(e) => setPropertyType(e.target.value)}
+>
+  <option value="house">House</option>
+  <option value="apartment">Apartment</option>
+  <option value="condo">Condo</option>
+</select>
       </label>
-      <label>
-        Region:
-        <input
-          className="search-input"
-          type="text"
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}
-        />
-      </label>
+      <label>Region:
+        </label>
+      <div className="region-tiles">
+        {regions.map((value) => (
+          <div
+            key={value}
+            className={`region-tile ${region === value ? "selected" : ""}`}
+            onClick={() => handleRegionClick(value)}
+          >
+            {value}
+          </div>
+        ))}
+      </div>
       <label>
         Min Price:
         <input

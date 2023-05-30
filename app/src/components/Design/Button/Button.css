@@ -11,7 +11,7 @@
 }
 
 .btn--primary {
-  background: rgb(16, 18, 102);
+  background: #7F5AF0;
 }
 
 .btn--secondary {
@@ -20,10 +20,13 @@
 
 .btn--alert {
   border-radius: 0.5rem;
-  background: #ffe6e6;
-  color: #450707;
+  background: #7F5AF0;
+  color: #fff;
+}
+.btn--alert:hover {
+  background: #6331f8;
 }
 
 .btn--primary:hover {
-  background: rgb(4, 5, 43);
+  background: #6331f8;
 }
