@@ -42,6 +42,7 @@ console.log(process.env.REACT_APP_API_URL);
     <div className={styles.containerRegister}>
             <Link to="/" className={styles.linkBack}>&lt; Back</Link>
       <Title className={styles.title}>Register</Title>
+      <img src="./favicon.png" alt="My App Logo" width="30" height="30" />
       <div className={styles["form-container"]}>
         <form onSubmit={handleSubmit}>
           {error && <p>{error}</p>}

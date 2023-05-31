@@ -8,52 +8,65 @@ import useMutation from "../../../../core/hooks/useMutation";
 
 import './PublicPropertiesOverview.css';
 
-const PublicPropertiesOverview = ({ userId, favorites }) => {
-  const {
-    isLoading,
-    error,
-    data: properties,
-  } = useFetch("/properties");
+const PublicPropertiesOverview = ({ userId, favorites, searchTerm, order, saleType }) => {
+  const [selectedProperties, setSelectedProperties] = useState([]);
 
-
-  const [propertiesState, setPropertiesState] = useState([]);
+  const { data: properties, error, isLoading, refetch } = useFetch('/properties');
 
   useEffect(() => {
-    setPropertiesState(properties || []);
-  }, [properties]);
+    let filteredProperties = properties || [];
+
+    if (saleType !== "all") {
+      filteredProperties = filteredProperties.filter(property => property.saleRent === saleType);
+    }
+
+    switch (order) {
+      case 'year-asc':
+        filteredProperties.sort((a, b) => a.yearBuilt - b.yearBuilt);
+        break;
+      case 'year-desc':
+        filteredProperties.sort((a, b) => b.yearBuilt - a.yearBuilt);
+        break;
+      case 'price-asc':
+        filteredProperties.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-desc':
+        filteredProperties.sort((a, b) => b.price - a.price);
+        break;
+      case 'date-asc':
+        filteredProperties.sort((a, b) => parseInt(a._id.substring(0, 8), 16) - parseInt(b._id.substring(0, 8), 16));
+        break;
+      case 'date-desc':
+        filteredProperties.sort((a, b) => parseInt(b._id.substring(0, 8), 16) - parseInt(a._id.substring(0, 8), 16));
+        break;
+      default:
+        break;
+    }
+
+    setSelectedProperties(filteredProperties);
+  }, [properties, saleType, order]);
+
   const { mutate } = useMutation();
-  
-  const [data, setData] = useState({
-    userId: "",
-    propertyId: "",
-  });
-  const handleFavoriteClick = (userId, propertyId) => {
-    // Find the property in the properties array
-    const propertyIndex = properties.findIndex(property => property._id === propertyId);
 
-    // If the property is already favorited, unfavorite it. Otherwise, favorite it.
-    const newProperties = [...propertiesState];
+  const handleFavoriteClick = (propertyId) => {
+    const propertyIndex = selectedProperties.findIndex(property => property._id === propertyId);
+    const newProperties = [...selectedProperties];
     newProperties[propertyIndex].favorited = !newProperties[propertyIndex].favorited;
-  
-    // Update state
-    setPropertiesState(newProperties);
 
-  
-    // Call the mutation function to persist this change
+    setSelectedProperties(newProperties);
+
     mutate(
       `/favorites/${userId}/${propertyId}`,
       {
         method: newProperties[propertyIndex].favorited ? 'POST' : 'DELETE',
-        data,
       },
       {
         onSuccess: () => {}, // Placeholder if no specific action
         onError: (error) => { console.error(error); }, // Logs the error to console
       }
     );
-    
   };
- 
+
   if (error) {
     return <p>{error}</p>;
   }
@@ -62,21 +75,30 @@ const PublicPropertiesOverview = ({ userId, favorites }) => {
     return <Loading />;
   }
 
-  console.log(propertiesState);
   return (
     <>
-      <div className="flex flex-end">
-      </div>
       <List>
-        {propertiesState.map((property) => (
+        {selectedProperties.filter((property) => {
+          const title = property.street || "";
+          const municipality = property.municipality || "";
+          const searchTermLower = searchTerm?.toLowerCase() || "";
+          return (
+            title.toLowerCase().includes(searchTermLower) ||
+            municipality.toLowerCase().includes(searchTermLower)
+          );
+        }).map((property) => (
           <ListItem
             href={`/public/${property._id}`}
             key={property._id}
             img={property.image}
             title={formatName(property)}
             favorited={property.favorited}
-            handleFavoriteClick={() => handleFavoriteClick(userId, property._id)}
+            handleFavoriteClick={() => handleFavoriteClick(property._id)}
+            isProperty={true} // set isProperty to true for each property
           >
+            <p>Type: {property.type}</p>
+            <p>Price: € {property.price}</p>
+            <p>Municipality: {property.municipality}</p>
           </ListItem>
         ))}
       </List>

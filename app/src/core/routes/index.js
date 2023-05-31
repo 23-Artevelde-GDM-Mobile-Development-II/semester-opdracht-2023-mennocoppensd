@@ -7,6 +7,7 @@ const AuthRoutes = {
     Index: '/', 
     NotFound: '/*',
     Favorites: '/favorites',
+    UserChat: '/chat/:officeId/:propertyId/*',
 
     };
     
@@ -15,6 +16,10 @@ const AuthRoutes = {
       PropertiesOverview: '/properties',
       PropertiesDetail: '/properties/:id/*',
       AddProperty: '/properties/add',
+      EstateOfficeChat: '/office/:officeId/chat',
+      EstateOfficeMessagesDashboard: '/office/:officeId/dashboard',
+      Dashboard: '/office/*',
+      PropertyChats: '/office/:officeId/property/:propertyId/chats'
     };
 
   const AdminRoutes = {

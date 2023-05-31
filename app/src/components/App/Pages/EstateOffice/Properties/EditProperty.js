@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import Title from "../../../Design/Title/Title";
+
 import PropertyForm from "./Form/PropertyForm";
-import useMutation from "../../../../core/hooks/useMutation";
+import useMutation from "../../../../../core/hooks/useMutation";
+import Title from "../../../../Design/Title/Title";
+
 
 const EditProperty = ({ property, onUpdate }) => {
   const navigate = useNavigate();

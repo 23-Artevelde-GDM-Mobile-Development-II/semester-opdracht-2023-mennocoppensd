@@ -5,6 +5,10 @@
   
 }
 
+.contact-us h2 {
+  margin: 2rem;
+}
+
 .contact-form {
   max-width: 500px;
   margin: 0 auto;

@@ -1,12 +1,15 @@
-import Loading from "../../../Design/Loading/Loading";
-import List from "../../../Design/List/List";
-import ListItem from "../../../Design/List/ListItem"
-import Button from "../../../Design/Button/Button";
-import { formatName } from "../../../../core/modules/properties/utils";
+
+
 import DeletePropertyButton from "./Delete/DeletePropertyButton";
-import useFetch from "../../../../core/hooks/useFetch";
-import Header from "../../../Design/Public/Header/Header";
+
 import { Link } from "react-router-dom";
+import useFetch from "../../../../../core/hooks/useFetch";
+import Header from "../../../../Design/Public/Header/Header";
+import Loading from "../../../../Design/Loading/Loading";
+import Button from "../../../../Design/Button/Button";
+import List from "../../../../Design/List/List";
+import ListItem from "../../../../Design/List/ListItem";
+import { formatName } from "../../../../../core/modules/properties/utils";
 
 const PropertiesOverview = () => {
   const {
@@ -46,8 +49,10 @@ const PropertiesOverview = () => {
             key={property._id}
             img={property.image}
             title={formatName(property)}
-
           >
+            <p>Type: {property.type}</p>
+            <p>Price: {property.price}</p>
+            <p>Municipality: {property.municipality}</p>
             <DeletePropertyButton
               id={property._id}
               onSuccess={handleDeleteSuccess}

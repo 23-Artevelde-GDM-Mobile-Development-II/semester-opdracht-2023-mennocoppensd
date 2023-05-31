@@ -1,8 +1,10 @@
 import { Route, Routes, useParams } from "react-router-dom";
-import Loading from "../../../../Design/Loading/Loading";
+
 import EditProperty from "../EditProperty";
 import PropertyInfo from "./PropertyInfo";
-import useFetch from "../../../../../core/hooks/useFetch";
+import Loading from "../../../../../Design/Loading/Loading";
+import useFetch from "../../../../../../core/hooks/useFetch";
+
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -23,7 +25,7 @@ const PropertyDetail = () => {
   }
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading/>;
   }
 
   return (

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-import { formatName } from "../../../../../core/modules/properties/utils";
-import Button from "../../../../Design/Button/Button";
+import Button from "../../../../../Design/Button/Button";
+import { formatName } from "../../../../../../core/modules/properties/utils";
+
+
 
 const PropertyInfo = ({ property }) => {
   return (

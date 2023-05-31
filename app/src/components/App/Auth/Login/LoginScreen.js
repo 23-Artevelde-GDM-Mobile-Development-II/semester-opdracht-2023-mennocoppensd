@@ -37,6 +37,7 @@ const LoginScreen = ({ onLogin }) => {
     <div className={styles.containerLogin}>
       <Link to="/" className={styles.linkBack}>&lt; Back</Link>
       <Title className={styles.title}>Sign in</Title>
+      {/* <img src="./favicon.png" alt="My App Logo" width="30" height="30" /> */}
       <div className={styles["form-container"]}>
         <form onSubmit={handleSubmit}>
           {error && <p>{error}</p>}

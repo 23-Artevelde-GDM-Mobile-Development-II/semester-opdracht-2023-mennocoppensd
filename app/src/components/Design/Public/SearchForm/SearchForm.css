@@ -59,3 +59,30 @@
   background-color: #7F5AF0;
   color: #fff;
 }
+
+.saleTypeGroup {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+  gap: 10px;
+}
+
+.search-form input[type="radio"] {
+  margin-right: 5px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  width: 20px;
+}
+
+.search-form input[type="radio"]:checked + label:before {
+  content: "\2022";
+  color: #7F5AF0;
+  background-color: #7F5AF0;
+  font-size: 18px;
+  line-height: 10px;
+  margin-right: 5px;
+}

@@ -14,7 +14,7 @@ const HowItWorks = () => {
     {
       id: 2,
       icon: feature2Icon,
-      description: 'Seamlessly integrate with other platforms and services to streamline your workflow and enhance productivity.',
+      description: 'Seamlessly integrate with other platforms and services to streamline your workflow and enhance productivity. We got you covered!',
     },
     {
       id: 3,
