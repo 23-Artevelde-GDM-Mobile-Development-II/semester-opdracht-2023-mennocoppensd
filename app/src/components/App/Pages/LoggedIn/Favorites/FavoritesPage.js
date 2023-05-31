@@ -2,6 +2,7 @@ import useFetch from "../../../../../core/hooks/useFetch";
 import { formatName } from "../../../../../core/modules/categories/utils";
 import List from "../../../../Design/List/List";
 import ListItem from "../../../../Design/List/ListItem";
+import Loading from "../../../../Design/Loading/Loading";
 
 
 const FavoritesPage = () => {
@@ -12,7 +13,7 @@ const FavoritesPage = () => {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   const favoriteProperties = properties.filter(property => property.favorited);

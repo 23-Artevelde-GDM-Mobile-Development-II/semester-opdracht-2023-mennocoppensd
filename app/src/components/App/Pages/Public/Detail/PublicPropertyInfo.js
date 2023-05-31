@@ -29,6 +29,9 @@ const PublicPropertyInfo = ({ property }) => {
         ))}
         <p>Is Sold or Rented: {property.isSoldOrRented ? 'Yes' : 'No'}</p>
       </div>
+      <Link to={`/chat/${property.estateOffice}/${property._id}`} className={styles.contactButton}>
+      Contact Estate Office
+      </Link>
     </div>
   );
 };

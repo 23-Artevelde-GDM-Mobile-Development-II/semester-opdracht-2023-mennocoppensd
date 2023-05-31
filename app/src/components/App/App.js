@@ -7,10 +7,10 @@ import LoginScreen from "./Auth/Login/LoginScreen";
 import RegisterScreen from "./Auth/Register/RegisterScreen";
 import LandingPage from "./Pages/Public/LandingPage/LandingPage";
 import SearchPage from "./Pages/Public/SearchPage/SearchPage";
-import AddProperty from "./Pages/EstateOffice/AddProperty";
-import PropertyDetail from "./Pages/EstateOffice/Detail/PropertyDetail";
+import AddProperty from "./Pages/EstateOffice/Properties/AddProperty";
+
 import PublicPropertyDetail from "./Pages/Public/Detail/PublicPropertyDetail";
-import PropertiesOverview from "./Pages/EstateOffice/PropertiesOverview";
+import PropertiesOverview from "./Pages/EstateOffice/Properties/PropertiesOverview";
 import PublicPropertiesOverview from "./Pages/Public/PublicPropertiesOverview";
 import NotFound from "./Pages/NotFound/NotFound"
 import UsersOverview from "./Pages/Admin/Users/UsersOverview";
@@ -24,6 +24,13 @@ import CategoriesOverview from "./Pages/Admin/Categories/CategoriesOverview";
 import CategoryDetail from "./Pages/Admin/Categories/Detail/CategoryDetail";
 import AddCategory from "./Pages/Admin/Categories/AddCategory";
 import FavoritesPage from "./Pages/LoggedIn/Favorites/FavoritesPage";
+import UserChatPage from "./Pages/LoggedIn/UserChat/UserChat";
+
+import EstateOfficeMessagesDashboard from "./Pages/EstateOffice/Chat/EstateOfficeMessagesDashboard";
+import PropertyChats from "./Pages/EstateOffice/Chat/PropertyChats";
+import EstateOfficeChatPage from "./Pages/EstateOffice/Chat/EstateOfficeChat/EstateOfficeChat";
+import PropertyDetail from "./Pages/EstateOffice/Properties/Detail/PropertyDetail";
+import EstateOfficeDashboard from "./Pages/EstateOffice/EstateOfficeDashboard";
 
 const App = () => {
   return (
@@ -41,6 +48,7 @@ const App = () => {
     <Route path="/public" element={<PublicPropertiesOverview/>} />
     <Route path="/public/:id/*" element={<PublicPropertyDetail />} />
     <Route path={BasicRoutes.Favorites} element={<AuthContainer> <FavoritesPage /> </AuthContainer>} />
+    <Route path={BasicRoutes.UserChat} element={<AuthContainer> <UserChatPage /> </AuthContainer>} />
 
       <Route path="/" element={<Navigate to="/" />} />
       
@@ -52,6 +60,10 @@ const App = () => {
         <Route path={EstateRoutes.PropertiesOverview} element={<AuthContainer><PropertiesOverview /></AuthContainer>} />
         <Route path={EstateRoutes.PropertiesDetail} element={<AuthContainer><PropertyDetail /></AuthContainer>} />
         <Route path={EstateRoutes.AddProperty} element={<AuthContainer><AddProperty /></AuthContainer>} />
+        <Route path={EstateRoutes.EstateOfficeChat} element={<AuthContainer><EstateOfficeChatPage /></AuthContainer>} />
+        <Route path={EstateRoutes.EstateOfficeMessagesDashboard} element={<AuthContainer><EstateOfficeMessagesDashboard /></AuthContainer>} />
+        <Route path={EstateRoutes.Dashboard} element={<AuthContainer><EstateOfficeDashboard /></AuthContainer>} />
+        <Route path={EstateRoutes.PropertyChats} element={<AuthContainer> <PropertyChats /> </AuthContainer>} />
 
           {/* Admin */}
         <Route path={AdminRoutes.EstateOfficesOverview} element={<AuthContainer><EstateOfficesOverview /></AuthContainer>} />

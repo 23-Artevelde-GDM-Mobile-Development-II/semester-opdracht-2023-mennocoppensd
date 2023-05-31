@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-const ListItem = ({ title, img, onClick, href, children, favorited, handleFavoriteClick }) => {
+const ListItem = ({ title, img, onClick, href, children, favorited, handleFavoriteClick, isProperty }) => {
   
   if (href) {
     return (
@@ -11,11 +11,13 @@ const ListItem = ({ title, img, onClick, href, children, favorited, handleFavori
           <img className="list-item__image" src={img} alt={title} />
           <h3 className="list-item__title">{title}</h3>
         </Link>
-        <FontAwesomeIcon 
-          icon={faHeart} 
-          className={favorited ? "favorited" : ""} 
-          onClick={handleFavoriteClick} 
-        />
+        {isProperty && (
+          <FontAwesomeIcon 
+            icon={faHeart} 
+            className={favorited ? "favorited" : ""} 
+            onClick={handleFavoriteClick} 
+          />
+        )}
         {children}
       </div>
     );
@@ -25,11 +27,13 @@ const ListItem = ({ title, img, onClick, href, children, favorited, handleFavori
     <li className="list-item" onClick={onClick}>
       <img className="list-item__image" src={img} alt={title} />
       <h3 className="list-item__title">{title}</h3>
-      <FontAwesomeIcon 
-        icon={faHeart} 
-        className={favorited ? "favorited" : ""} 
-        onClick={handleFavoriteClick} 
-      />
+      {isProperty && (
+        <FontAwesomeIcon 
+          icon={faHeart} 
+          className={favorited ? "favorited" : ""} 
+          onClick={handleFavoriteClick} 
+        />
+      )}
       {children}
     </li>
   );

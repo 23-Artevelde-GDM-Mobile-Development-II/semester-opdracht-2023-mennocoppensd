@@ -3,26 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import Container from '../../Container/Container';
 import './SearchForm.css';
 
-const regions = [
-  "All",
-  "Antwerp",
-  "Flemish Brabant",
-  "West Flanders",
-  "East Flanders",
-  "Hainaut",
-  "Liège",
-  "Limburg",
-  "Luxembourg",
-  "Namur",
-  "Walloon Brabant",
-];
-
-const SearchForm = ({ categories }) => {
+const SearchForm = ({ categories, searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
   const [propertyType, setPropertyType] = useState("");
   const [region, setRegion] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [order, setOrder] = useState("");
+  const [saleType, setSaleType] = useState("all");
+
+  const handleSaleTypeChange = (e) => {
+    setSaleType(e.target.value);
+  };
+
+  const handleOrderChange = (e) => {
+    setOrder(e.target.value);
+  };
   
   const handleRegionClick = (value) => {
     setRegion(value);
@@ -31,7 +27,7 @@ const SearchForm = ({ categories }) => {
   const handleSearch = (e) => {
     e.preventDefault();
     // Construct the search query based on the user's inputs
-    const query = `?type=${propertyType}&region=${region}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+    const query = `?type=${propertyType}&region=${region}&minPrice=${minPrice}&maxPrice=${maxPrice}&order=${order}&saleType=${saleType}`;
     // Redirect the user to the search results page with the query parameters
     navigate(`/search${query}`);
   };
@@ -39,6 +35,20 @@ const SearchForm = ({ categories }) => {
   console.log(categories);
   return (
     <form className="search-form" onSubmit={handleSearch}>
+      <label>
+        Street name / municipality search filter:
+        <input
+          className="search-input"
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </label>
+      <div className="saleTypeGroup" onChange={handleSaleTypeChange}>
+        All <input type="radio" value="all" name="saleType" defaultChecked /> 
+        For Rent <input type="radio" value="forRent" name="saleType" /> 
+        For Sale<input type="radio" value="forSale" name="saleType" /> 
+      </div>
       <label>
         Property Type:
         <select
@@ -54,18 +64,6 @@ const SearchForm = ({ categories }) => {
           ))}
         </select>
       </label>
-      <label>Region:</label>
-      <div className="region-tiles">
-        {regions.map((value) => (
-          <div
-            key={value}
-            className={`region-tile ${region === value ? "selected" : ""}`}
-            onClick={() => handleRegionClick(value)}
-          >
-            {value}
-          </div>
-        ))}
-      </div>
       <label>
         Min Price:
         <input
@@ -83,6 +81,21 @@ const SearchForm = ({ categories }) => {
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
         />
+      </label>
+      <label>
+        Order By:
+        <select
+          className="search-input"
+          onChange={handleOrderChange}
+        >
+          <option value="">Select an order</option>
+          <option value="year-asc">Year Ascending</option>
+          <option value="year-desc">Year Descending</option>
+          <option value="price-asc">Price Ascending</option>
+          <option value="price-desc">Price Descending</option>
+          <option value="date-asc">Date Ascending</option>
+          <option value="date-desc">Date Descending</option>
+        </select>
       </label>
       <button className="search-button" type="submit">
         Search

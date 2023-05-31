@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Button from "../../../../Design/Button/Button";
-import Input from "../../../../Design/Input/Input";
+
 import './PropertyForm.css'
+import Input from "../../../../../Design/Input/Input";
+import Button from "../../../../../Design/Button/Button";
 
 const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {}, categories = [] }) => {
   const [data, setData] = useState({
