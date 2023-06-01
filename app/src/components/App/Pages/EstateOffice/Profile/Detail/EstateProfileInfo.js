@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { formatName } from "../../../../../../core/modules/users/utils";
 import Button from "../../../../../Design/Button/Button";
 
-const ProfileInfo = ({ user }) => {
+const EstateProfileInfo = ({ user }) => {
     // const backLink = role === 'ADMIN' ? "/admin" : "/estate-office";
   return (
     <div>
-      <Link to="/admin">&lt; Back</Link>
+      <Link to="/office">&lt; Back</Link>
       <div className="flex flex-end">
         <Button color="primary" href="edit">
           Edit
@@ -24,4 +24,4 @@ const ProfileInfo = ({ user }) => {
   );
 };
 
-export default ProfileInfo;
+export default EstateProfileInfo;

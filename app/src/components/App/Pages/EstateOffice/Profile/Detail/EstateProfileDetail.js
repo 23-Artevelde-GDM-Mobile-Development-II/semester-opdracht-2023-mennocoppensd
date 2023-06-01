@@ -1,11 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import useFetch from "../../../../../../core/hooks/useFetch";
 import Loading from "../../../../../Design/Loading/Loading";
-import EditProfile from "../EditProfile";
-import ProfileInfo from "./ProfileInfo";
 import Header from "../../../../../Design/Public/Header/Header";
+import EditEstateProfile from "../EditEstateProfile";
 
-const ProfileDetail = ({ user }) => {
+const EstateProfileDetail = ({ user }) => {
   // Assuming user object has id field
   const userId = user._id;
 
@@ -32,9 +31,9 @@ const ProfileDetail = ({ user }) => {
   return (
     <>
     <Header />
-      <EditProfile user={user} onUpdate={handleUpdate} role={user.role} />
+      <EditEstateProfile user={user} onUpdate={handleUpdate} />
       </>
   );
 };
 
-export default ProfileDetail;
+export default EstateProfileDetail;
