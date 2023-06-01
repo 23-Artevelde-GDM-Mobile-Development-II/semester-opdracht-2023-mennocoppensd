@@ -28,6 +28,9 @@ const AuthRoutes = {
     UsersOverview: '/users',
     UsersDetail: '/users/:id/*',
     AddUser: '/users/add',
+    
+    // CRUD Admin Profile
+    ProfileDetail: '/admin/settings/*',
 
     // CRUD Estate Offices
     EstateOfficesOverview: '/estate-offices',

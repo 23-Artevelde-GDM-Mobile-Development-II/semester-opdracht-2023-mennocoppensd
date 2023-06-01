@@ -2,7 +2,7 @@
 
 import DeletePropertyButton from "./Delete/DeletePropertyButton";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import useFetch from "../../../../../core/hooks/useFetch";
 import Header from "../../../../Design/Public/Header/Header";
 import Loading from "../../../../Design/Loading/Loading";
@@ -12,12 +12,28 @@ import ListItem from "../../../../Design/List/ListItem";
 import { formatName } from "../../../../../core/modules/properties/utils";
 
 const PropertiesOverview = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     isLoading,
     error,
     invalidate,
     data: properties,
   } = useFetch("/properties");
+
+  const handleBackClick = () => {
+    console.log('Current location state:', location.state); // This should log { from: '/admin' } or { from: '/office' }
+    if (location.state?.from) {
+      console.log('Navigating to:', location.state.from); // Check the path you're navigating to
+      navigate(location.state.from); // navigate to the previous page in the app, not in the browser history
+    } else {
+      console.log('Default navigation to: /admin');
+      navigate("/admin"); // default back path
+    }
+  };
+  
  
   if (error) {
     return <p>{error}</p>;
@@ -35,10 +51,10 @@ const PropertiesOverview = () => {
   return (
     <>
     <Header />
-    <Link to="/admin" >&lt; Back</Link>
+    <Button onClick={handleBackClick}>&lt; Back</Button>
       <h1>Properties</h1>
       <div className="flex flex-end">
-        <Button color="primary" href="add">
+        <Button color="primary" onClick={() => navigate("add")}>
           Add
         </Button>
       </div>

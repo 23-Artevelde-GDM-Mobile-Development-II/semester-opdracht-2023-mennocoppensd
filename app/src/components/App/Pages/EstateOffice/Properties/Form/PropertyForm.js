@@ -45,7 +45,7 @@ const PropertyForm = ({ onSubmit, isDisabled, label, initialData = {}, categorie
     formData.append('type', data.type);
     formData.append('forSale', data.forSale);
     formData.append('forRent', data.forRent);
-    formData.append('estatoffice', data.estateOffice);
+    formData.append('estatOffice', data.estateOffice);
     formData.append('yearBuilt', data.yearBuilt);
     formData.append('street', data.street);
     formData.append('number', data.number);

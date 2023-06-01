@@ -163,6 +163,44 @@ authRouter.delete("/properties/:id", async (req, res) => {
   res.json({});
 });
 
+// Messages
+
+app.post('/chat/:officeId/:propertyId', async (req, res) => {
+  const messageData = req.body;
+
+  try {
+    const messages = db.collection('messages');
+    const result = await messages.insertOne(messageData);
+    
+    if (result.insertedCount === 1) {
+      res.status(200).json(result.ops[0]);
+    } else {
+      throw new Error("Message insertion failed");
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error saving message' });
+  }
+});
+
+app.patch('/chat/:messageId/read', async (req, res) => {
+  const messageId = req.params.messageId;
+
+  try {
+    const messages = db.collection('messages');
+    const result = await messages.updateOne({ _id: new ObjectId(messageId) }, { $set: { read: true } });
+    
+    if (result.modifiedCount === 1) {
+      res.status(200).json({ message: 'Message marked as read' });
+    } else {
+      throw new Error("Message update failed");
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error marking message as read' });
+  }
+});
+
+
+
 app.use(async (req, res, next) => {
   if (req.headers.authorization) {
     // check if user with id exists
