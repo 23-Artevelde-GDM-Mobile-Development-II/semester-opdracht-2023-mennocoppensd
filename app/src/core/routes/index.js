@@ -4,6 +4,7 @@ const AuthRoutes = {
   };
   
   const BasicRoutes = { 
+    Search: '/search',
     Index: '/', 
     NotFound: '/*',
     Favorites: '/favorites',
@@ -19,7 +20,10 @@ const AuthRoutes = {
       EstateOfficeChat: '/office/:officeId/chat',
       EstateOfficeMessagesDashboard: '/office/:officeId/dashboard',
       Dashboard: '/office/*',
-      PropertyChats: '/office/:officeId/property/:propertyId/chats'
+      PropertyChats: '/office/:officeId/property/:propertyId/chats',
+
+          // CRUD Estate Profile
+      ProfileDetail: '/office/settings/*',
     };
 
   const AdminRoutes = {

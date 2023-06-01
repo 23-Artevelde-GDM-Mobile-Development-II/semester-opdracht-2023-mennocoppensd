@@ -32,6 +32,7 @@ import EstateOfficeChatPage from "./Pages/EstateOffice/Chat/EstateOfficeChat/Est
 import PropertyDetail from "./Pages/EstateOffice/Properties/Detail/PropertyDetail";
 import EstateOfficeDashboard from "./Pages/EstateOffice/EstateOfficeDashboard";
 import ProfileDetail from "./Pages/Admin/Profile/Detail/ProfileDetail";
+import EstateProfileDetail from "./Pages/EstateOffice/Profile/Detail/EstateProfileDetail";
 
 const App = () => {
   const { user } = useAuthContext() || { user: null };
@@ -44,11 +45,12 @@ const App = () => {
       {/* Header */}
         <Routes>
           {/* Auth */}
-          {/* <Route path={AuthRoutes.Login} element={<LoginScreen />} />
-          <Route path={AuthRoutes.Register} element={<RegisterScreen />} /> */}
+          {/* <Route path={AuthRoutes.Login} element={<LoginScreen />} /> */}
+    {/* <Route path={AuthRoutes.Register} element={<RegisterScreen />} />  */}
 
-      {/* Public */}
-    <Route path={BasicRoutes.Index} element={<LandingPage />} />
+    {/* Public */}
+    <Route path={BasicRoutes.Index} element={isAdmin ? <AdminDashboard /> : isEstateOffice ? <EstateOfficeDashboard /> : <LandingPage />} />
+
     <Route path={BasicRoutes.Search} element={<SearchPage />} />
     <Route path="/public" element={<PublicPropertiesOverview/>} />
     <Route path="/public/:id/*" element={<PublicPropertyDetail />} />
@@ -70,6 +72,7 @@ const App = () => {
         <Route path={EstateRoutes.EstateOfficeMessagesDashboard} element={<AuthContainer><EstateOfficeMessagesDashboard /></AuthContainer>} />
         <Route path={EstateRoutes.Dashboard} element={<AuthContainer><EstateOfficeDashboard /></AuthContainer>} />
         <Route path={EstateRoutes.PropertyChats} element={<AuthContainer> <PropertyChats /> </AuthContainer>} />
+        <Route path={EstateRoutes.ProfileDetail} element={<AuthContainer><EstateProfileDetail user={user} /></AuthContainer>} />
 </>
 )}
 {isAdmin && (
@@ -80,11 +83,12 @@ const App = () => {
         <Route path={AdminRoutes.AddEstateOffice} element={<AuthContainer><AddEstateOffice /></AuthContainer>} />
 
         <Route path={AdminRoutes.dashboard} element={<AuthContainer><AdminDashboard /></AuthContainer>} />
+        <Route path={EstateRoutes.PropertiesOverview} element={<AuthContainer><PropertiesOverview /></AuthContainer>} />
         <Route path={AdminRoutes.UsersOverview} element={<AuthContainer><UsersOverview /></AuthContainer>} />
         <Route path={AdminRoutes.UsersDetail} element={<AuthContainer><UserDetail /></AuthContainer>} />
         <Route path={AdminRoutes.AddUser} element={<AuthContainer><AddUser /></AuthContainer>} />
 
-        <Route path={AdminRoutes.ProfileDetail} element={<AuthContainer><ProfileDetail /></AuthContainer>} />
+        <Route path={AdminRoutes.ProfileDetail} element={<AuthContainer><ProfileDetail user={user}/></AuthContainer>} />
 
         <Route path={AdminRoutes.CategoriesOverview} element={<AuthContainer><CategoriesOverview /></AuthContainer>} />
         <Route path={AdminRoutes.CategoriesDetail} element={<AuthContainer>< CategoryDetail /></AuthContainer>} />
