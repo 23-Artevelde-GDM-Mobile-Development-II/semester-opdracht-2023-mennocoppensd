@@ -2,7 +2,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthRoutes, BasicRoutes, AgentRoutes, AdminRoutes, EstateRoutes } from "../../core/routes";
 import Container from "../Design/Container/Container";
-import AuthContainer from "./Auth/AuthContainer";
+import AuthContainer, { useAuthContext } from "./Auth/AuthContainer";
 import LoginScreen from "./Auth/Login/LoginScreen";
 import RegisterScreen from "./Auth/Register/RegisterScreen";
 import LandingPage from "./Pages/Public/LandingPage/LandingPage";
@@ -31,13 +31,18 @@ import PropertyChats from "./Pages/EstateOffice/Chat/PropertyChats";
 import EstateOfficeChatPage from "./Pages/EstateOffice/Chat/EstateOfficeChat/EstateOfficeChat";
 import PropertyDetail from "./Pages/EstateOffice/Properties/Detail/PropertyDetail";
 import EstateOfficeDashboard from "./Pages/EstateOffice/EstateOfficeDashboard";
+import ProfileDetail from "./Pages/Admin/Profile/Detail/ProfileDetail";
 
 const App = () => {
+  const { user } = useAuthContext() || { user: null };
+
+  const isAdmin = user?.role === "ADMIN";
+  const isEstateOffice = user?.role === "ESTATE OFFICE";
   return (
-    <AuthContainer>
+    <>
+  
       {/* Header */}
         <Routes>
-
           {/* Auth */}
           {/* <Route path={AuthRoutes.Login} element={<LoginScreen />} />
           <Route path={AuthRoutes.Register} element={<RegisterScreen />} /> */}
@@ -54,7 +59,8 @@ const App = () => {
       
 {/* localStorage.clear() in console om uit te loggen, nog een log uit knop voorzien */}
 
-
+{isEstateOffice && (
+<>
           {/* Estate Office Routes */}
         <Route path={EstateRoutes.Search} element={<SearchPage />} />
         <Route path={EstateRoutes.PropertiesOverview} element={<AuthContainer><PropertiesOverview /></AuthContainer>} />
@@ -64,7 +70,10 @@ const App = () => {
         <Route path={EstateRoutes.EstateOfficeMessagesDashboard} element={<AuthContainer><EstateOfficeMessagesDashboard /></AuthContainer>} />
         <Route path={EstateRoutes.Dashboard} element={<AuthContainer><EstateOfficeDashboard /></AuthContainer>} />
         <Route path={EstateRoutes.PropertyChats} element={<AuthContainer> <PropertyChats /> </AuthContainer>} />
-
+</>
+)}
+{isAdmin && (
+<>
           {/* Admin */}
         <Route path={AdminRoutes.EstateOfficesOverview} element={<AuthContainer><EstateOfficesOverview /></AuthContainer>} />
         <Route path={AdminRoutes.EstateOfficesDetail} element={<AuthContainer><EstateOfficeDetail /></AuthContainer>} />
@@ -75,15 +84,18 @@ const App = () => {
         <Route path={AdminRoutes.UsersDetail} element={<AuthContainer><UserDetail /></AuthContainer>} />
         <Route path={AdminRoutes.AddUser} element={<AuthContainer><AddUser /></AuthContainer>} />
 
+        <Route path={AdminRoutes.ProfileDetail} element={<AuthContainer><ProfileDetail /></AuthContainer>} />
+
         <Route path={AdminRoutes.CategoriesOverview} element={<AuthContainer><CategoriesOverview /></AuthContainer>} />
         <Route path={AdminRoutes.CategoriesDetail} element={<AuthContainer>< CategoryDetail /></AuthContainer>} />
         <Route path={AdminRoutes.AddCategory} element={<AuthContainer><AddCategory /></AuthContainer>} />
-          
+        </>
+        )}
           {/* not found path */}
           <Route path={BasicRoutes.NotFound} element={<NotFound />} />
         </Routes>
 
-    </AuthContainer>
+        </>
     // Alle componenten waar geen login voor nodig is buiten AuthContainer
   );
 };

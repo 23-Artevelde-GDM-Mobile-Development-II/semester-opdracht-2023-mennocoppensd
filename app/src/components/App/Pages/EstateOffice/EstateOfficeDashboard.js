@@ -11,37 +11,37 @@ const EstateOfficeDashboard = () => {
       <div className="admin-dashboard-container">
         <h1 className="admin-dashboard-title">Estate Office Dashboard</h1>
         <div className="admin-dashboard-content">
-          <Link to="/properties" className="admin-dashboard-tile">
+        <Link to={{ pathname: "/properties", state: { from: "/office" } }} className="admin-dashboard-tile">
             <span className="admin-dashboard-tile-icon">🏠</span>
             <h2 className="admin-dashboard-tile-title">Properties</h2>
             <p className="admin-dashboard-tile-text">
-              View and manage all properties
+              View and manage your properties
             </p>
           </Link>
-          <Link to="/estate-offices" className="admin-dashboard-tile">
-            <span className="admin-dashboard-tile-icon">📠</span>
-            <h2 className="admin-dashboard-tile-title">Estate Offices</h2>
+          <Link to="/office/:officeId/dashboard" className="admin-dashboard-tile">
+            <span className="admin-dashboard-tile-icon">💬</span>
+            <h2 className="admin-dashboard-tile-title">Messages</h2>
             <p className="admin-dashboard-tile-text">
-              View and manage all estate offices
+              View estate office messages
             </p>
           </Link>
           <Link to="/users" className="admin-dashboard-tile">
             <span className="admin-dashboard-tile-icon">👥</span>
-            <h2 className="admin-dashboard-tile-title">Users</h2>
+            <h2 className="admin-dashboard-tile-title">Add colleagues</h2>
             <p className="admin-dashboard-tile-text">
-              View and manage all users
+              View and manage your colleagues
             </p>
           </Link>
-          <Link to="/categories" className="admin-dashboard-tile">
-            <span className="admin-dashboard-tile-icon">📄</span>
-            <h2 className="admin-dashboard-tile-title">Categories</h2>
+          <Link to="/estate-offices" className="admin-dashboard-tile">
+            <span className="admin-dashboard-tile-icon">🏢</span>
+            <h2 className="admin-dashboard-tile-title">Estate Office</h2>
             <p className="admin-dashboard-tile-text">
-              View and manage all categories
+              View and manage estate office details
             </p>
           </Link>
         </div>
         <div className="admin-dashboard-other-options">
-          <Link to="/admin/settings" className="admin-dashboard-other-option">
+          <Link to="/office/settings/:id" className="admin-dashboard-other-option">
             <FaCog className="admin-dashboard-other-option-icon" />
             Settings
           </Link>

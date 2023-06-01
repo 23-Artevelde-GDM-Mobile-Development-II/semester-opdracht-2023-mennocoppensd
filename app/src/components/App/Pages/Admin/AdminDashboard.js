@@ -11,7 +11,7 @@ const AdminDashboard = () => {
       <div className="admin-dashboard-container">
         <h1 className="admin-dashboard-title">Admin Dashboard</h1>
         <div className="admin-dashboard-content">
-          <Link to="/properties" className="admin-dashboard-tile">
+        <Link to={{ pathname: "/properties", state: { from: "/admin" } }} className="admin-dashboard-tile">
             <span className="admin-dashboard-tile-icon">🏠</span>
             <h2 className="admin-dashboard-tile-title">Properties</h2>
             <p className="admin-dashboard-tile-text">
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
           </Link>
         </div>
         <div className="admin-dashboard-other-options">
-          <Link to="/admin/settings" className="admin-dashboard-other-option">
+          <Link to="/admin/settings/*" className="admin-dashboard-other-option">
             <FaCog className="admin-dashboard-other-option-icon" />
             Settings
           </Link>
