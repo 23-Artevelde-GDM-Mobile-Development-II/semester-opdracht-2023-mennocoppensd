@@ -3,11 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Title from "../../../../Design/Title/Title";
 import useMutation from "../../../../../core/hooks/useMutation";
 import ProfileForm from "./Form/EstateProfileForm";
+import Button from "../../../../Design/Button/Button";
 
 const EditEstateProfile = ({ user, onUpdate, role }) => {
   const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();
-  // const backLink = role === 'ADMIN' ? "/admin" : "/estate-office";
+
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
 
   const handleSubmit = (data) => {
     mutate(`${process.env.REACT_APP_API_URL}/users/${user._id}`, {
@@ -22,7 +26,7 @@ const EditEstateProfile = ({ user, onUpdate, role }) => {
 
   return (
     <>
-      <Link to="/office">&lt; Back</Link>
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <Title>Edit profile</Title>
       {error && <p>{error}</p>}
       <ProfileForm

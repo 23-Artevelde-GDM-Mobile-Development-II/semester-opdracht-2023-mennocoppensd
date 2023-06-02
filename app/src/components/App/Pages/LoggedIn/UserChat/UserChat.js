@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../../../../core/hooks/useFetch";
 import useMutation from "../../../../../core/hooks/useMutation";
 
 import "./UserChat.css";
 import Header from "../../../../Design/Public/Header/Header";
+import Button from "../../../../Design/Button/Button";
 
 
 
 const UserChat = ({ userId }) => {
+  const navigate = useNavigate();
   const { officeId, propertyId } = useParams();
 
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   
   const { data: property, isLoading, error } = useFetch(`/properties/${propertyId}`);
+
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
 
   console.log(property); // log the error variable
 
@@ -52,7 +58,7 @@ const UserChat = ({ userId }) => {
     <>
     <div className="chat-container">
     <div className="chat-header">
-    <Link to="/public/">&lt; Back</Link>
+    <Button onClick={handleBackClick}>&lt; Back</Button>
       <h1>Chat with {propertyId}</h1>
     </div>
     {/* <h1>Chat with {property.estateOffice} for {property.type} in {property.street} {property.number}, {property.municipality}</h1> */}

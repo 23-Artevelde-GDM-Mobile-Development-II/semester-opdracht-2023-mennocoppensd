@@ -75,7 +75,7 @@ authRouter.use(async (req, res, next) => {
     // check if user with id exists
     const user = await db
       .collection("users")
-      .findOne({ _id: ObjectId(req.headers.authorization) });
+      .findOne({ _id: new ObjectId(req.headers.authorization) });
     // if user exists, pass user object to the request object
     if (user) {
       req.user = user;
@@ -119,7 +119,7 @@ authRouter.post("/properties", async (req, res) => {
 authRouter.get("/properties/:id", async (req, res) => {
   const id = req.params.id;
   const property = await db.collection("properties").findOne({
-    _id: ObjectId(id),
+    _id: new ObjectId(id),
   });
 
   // if property exists, send back property object
@@ -138,13 +138,13 @@ authRouter.patch("/properties/:id", async (req, res) => {
   // check if property exists
   const property = await db
     .collection("properties")
-    .findOne({ _id: ObjectId(id) });
+    .findOne({ _id: new ObjectId(id) });
 
   // if property exists, update property data
   if (property) {
     const { _id, ...data } = req.body;
     const newData = { ...property, ...data };
-    await db.collection("properties").replaceOne({ _id: ObjectId(id) }, newData);
+    await db.collection("properties").replaceOne({ _id: new ObjectId(id) }, newData);
 
     res.json(newData);
   } else {
@@ -154,18 +154,25 @@ authRouter.patch("/properties/:id", async (req, res) => {
 
 // DELETE
 authRouter.delete("/properties/:id", async (req, res) => {
+  console.log(req.params.id);
+  try {
   const id = req.params.id;
 
   await db.collection("properties").deleteOne({
-    _id: ObjectId(id),
+    _id: new ObjectId(id),
   });
-
+}
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
   res.json({});
 });
 
+
 // Messages
 
-app.post('/chat/:officeId/:propertyId', async (req, res) => {
+authRouter.post('/chat/:officeId/:propertyId', async (req, res) => {
   const messageData = req.body;
 
   try {
@@ -182,7 +189,7 @@ app.post('/chat/:officeId/:propertyId', async (req, res) => {
   }
 });
 
-app.patch('/chat/:messageId/read', async (req, res) => {
+authRouter.patch('/chat/:messageId/read', async (req, res) => {
   const messageId = req.params.messageId;
 
   try {
@@ -199,6 +206,38 @@ app.patch('/chat/:messageId/read', async (req, res) => {
   }
 });
 
+// route handler on the server
+authRouter.get("/favorites", async (req, res) => {
+  const userId = req.user._id;  // assuming user's ID is attached to req.user object
+  const favorites = await db.collection("favorites").find({ userId: new ObjectId(userId) }).toArray();
+  
+  // Map the favorites array to an array of propertyId values
+  const favoriteIds = favorites.map(favorite => favorite.propertyId);
+  
+  res.json(favoriteIds);
+});
+
+// define a route to add a property to favorites
+authRouter.post("/favorites/:propertyId", async (req, res) => {
+  const userId = req.user._id;  // assuming user's ID is attached to req.user object
+  const propertyId = req.params.propertyId;
+  
+  const favorite = { userId: new ObjectId(userId), propertyId: new ObjectId(propertyId) };
+  await db.collection("favorites").insertOne(favorite);
+  
+  res.json(favorite);
+});
+
+// define a route to remove a property from favorites
+authRouter.delete("/favorites/:propertyId", async (req, res) => {
+  const userId = req.user._id;  // assuming user's ID is attached to req.user object
+  const propertyId = req.params.propertyId;
+  
+  await db.collection("favorites").deleteOne({ userId: new ObjectId(userId), propertyId: new ObjectId(propertyId) });
+  
+  res.json({ message: 'Favorite removed' });
+});
+
 
 
 app.use(async (req, res, next) => {
@@ -206,7 +245,7 @@ app.use(async (req, res, next) => {
     // check if user with id exists
     const user = await db
       .collection("users")
-      .findOne({ _id: ObjectId(req.headers.authorization) });
+      .findOne({ _id: new ObjectId(req.headers.authorization) });
     // exists? pass user to request
     console.log('test')
     if (user) {

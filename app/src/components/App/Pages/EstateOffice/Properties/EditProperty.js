@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PropertyForm from "./Form/PropertyForm";
 import useMutation from "../../../../../core/hooks/useMutation";
 import Title from "../../../../Design/Title/Title";
+import Button from "../../../../Design/Button/Button";
 
 
 const EditProperty = ({ property, onUpdate }) => {
@@ -20,9 +21,13 @@ const EditProperty = ({ property, onUpdate }) => {
     });
   };
 
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
+
   return (
     <>
-      <Link to="/admin">&lt; Back</Link>
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <Title>Edit property</Title>
       {error && <p>{error}</p>}
       <PropertyForm

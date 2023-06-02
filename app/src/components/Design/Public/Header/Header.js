@@ -7,10 +7,21 @@ import { useAuthContext } from '../../../App/Auth/AuthContainer';
 
 const Header = () => {
   const { user, logout } = useAuthContext();
+  const isAdmin = user?.role === "ADMIN";
+  const isEstateOffice = user?.role === "ESTATE OFFICE";
   return (
     <header className="header">
       <Container>
         <Link to="/" className="logo">KeyHunt</Link>
+        {isEstateOffice && isAdmin && (
+                  <nav className="nav-menu">
+                  <ul>
+                    
+       
+                  </ul>
+                </nav>
+        )}
+        {!isEstateOffice && !isAdmin && (
         <nav className="nav-menu">
           <ul>
             <li>
@@ -25,14 +36,16 @@ const Header = () => {
                 </Link>
               </li>
             )}
-            <li>
+      
+          </ul>
+        </nav>
+        )}
+           <li>
               {user 
                 ? <a href="/" onClick={logout}><FontAwesomeIcon icon={faSignOutAlt} /> Log out</a> 
                 : <Link to="/login"><FontAwesomeIcon icon={faSignInAlt} /></Link>
               }
             </li>
-          </ul>
-        </nav>
       </Container>
     </header>
   );

@@ -1,14 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import { formatName } from "../../../../../../core/modules/users/utils";
 import Button from "../../../../../Design/Button/Button";
 
 const EstateProfileInfo = ({ user }) => {
-    // const backLink = role === 'ADMIN' ? "/admin" : "/estate-office";
+
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
   return (
     <div>
-      <Link to="/office">&lt; Back</Link>
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <div className="flex flex-end">
         <Button color="primary" href="edit">
           Edit
