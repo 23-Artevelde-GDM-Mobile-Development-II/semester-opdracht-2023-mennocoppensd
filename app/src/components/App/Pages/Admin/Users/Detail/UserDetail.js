@@ -5,16 +5,10 @@ import UserInfo from "./UserInfo";
 import useFetch from "../../../../../../core/hooks/useFetch";
 import Loading from "../../../../../Design/Loading/Loading";
 
-
 const UserDetail = () => {
   const { id } = useParams();
 
-  const {
-    isLoading,
-    error,
-    invalidate,
-    data: user,
-  } = useFetch(`/users/${id}`);
+  const { isLoading, error, invalidate, data: user } = useFetch(`/users/${id}`);
 
   const handleUpdate = () => {
     invalidate();

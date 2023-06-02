@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../../Design/Public/Header/Header";
 import { FaCog } from "react-icons/fa";
 import "./AdminDashboard.css";
+import Footer from "../../../Design/Public/Footer/Footer";
 
 const AdminDashboard = () => {
   return (
@@ -11,7 +12,10 @@ const AdminDashboard = () => {
       <div className="admin-dashboard-container">
         <h1 className="admin-dashboard-title">Admin Dashboard</h1>
         <div className="admin-dashboard-content">
-        <Link to={{ pathname: "/properties", state: { from: "/admin" } }} className="admin-dashboard-tile">
+          <Link
+            to={{ pathname: "/properties", state: { from: "/admin" } }}
+            className="admin-dashboard-tile"
+          >
             <span className="admin-dashboard-tile-icon">🏠</span>
             <h2 className="admin-dashboard-tile-title">Properties</h2>
             <p className="admin-dashboard-tile-text">
@@ -47,6 +51,7 @@ const AdminDashboard = () => {
           </Link>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

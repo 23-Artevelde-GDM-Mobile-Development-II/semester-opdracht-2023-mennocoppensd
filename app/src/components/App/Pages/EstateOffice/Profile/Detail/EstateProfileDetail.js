@@ -14,7 +14,6 @@ const EstateProfileDetail = ({ user }) => {
     // data: userJSON,
   } = useFetch(`/users/${userId}`);
 
-  console.log(user); // log the error variable
   const handleUpdate = () => {
     invalidate();
   };
@@ -29,9 +28,9 @@ const EstateProfileDetail = ({ user }) => {
 
   return (
     <>
-    <Header />
+      <Header />
       <EditEstateProfile user={user} onUpdate={handleUpdate} />
-      </>
+    </>
   );
 };
 

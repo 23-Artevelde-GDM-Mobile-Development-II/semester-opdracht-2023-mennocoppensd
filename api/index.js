@@ -26,13 +26,15 @@ passport.use("local", LocalStrategy);
 
 passport.use("jwt", JwtStrategy);
 
-
 // initialize MongoDB client and database
 const client = await initClient();
 const db = client.db();
 
 // Creating the compound unique index for the 'favorites' collection
-db.collection("favorites").createIndex({ userId: 1, propertyId: 1 }, { unique: true });
+db.collection("favorites").createIndex(
+  { userId: 1, propertyId: 1 },
+  { unique: true }
+);
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
@@ -44,7 +46,7 @@ app.post("/register", async (req, res) => {
     }
 
     // Create a new user
-    const newUser = createUserData({ username, password })
+    const newUser = createUserData({ username, password });
 
     // Insert the user into the database
     await db.collection("users").insertOne(newUser);
@@ -54,15 +56,13 @@ app.post("/register", async (req, res) => {
       expiresIn: process.env.JWT_EXPIRES_IN_HOURS * 60,
     });
 
-    delete newUser.password
-    delete newUser.salt
-    delete newUser.saltParam
+    delete newUser.password;
+    delete newUser.salt;
+    delete newUser.saltParam;
     res.json({ token, ...newUser });
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
-
   }
 });
 
@@ -106,11 +106,9 @@ authRouter.get("/properties", async (req, res) => {
 // define a route to add a new property
 authRouter.post("/properties", async (req, res) => {
   const property = {
-    image:
-      "https://picsum.photos/200/300",
+    image: "https://picsum.photos/200/300",
     ...req.body,
   };
-
 
   await db.collection("properties").insertOne(property);
 
@@ -147,7 +145,9 @@ authRouter.patch("/properties/:id", async (req, res) => {
   if (property) {
     const { _id, ...data } = req.body;
     const newData = { ...property, ...data };
-    await db.collection("properties").replaceOne({ _id: new ObjectId(id) }, newData);
+    await db
+      .collection("properties")
+      .replaceOne({ _id: new ObjectId(id) }, newData);
 
     res.json(newData);
   } else {
@@ -159,58 +159,56 @@ authRouter.patch("/properties/:id", async (req, res) => {
 authRouter.delete("/properties/:id", async (req, res) => {
   console.log(req.params.id);
   try {
-  const id = req.params.id;
+    const id = req.params.id;
 
-  await db.collection("properties").deleteOne({
-    _id: new ObjectId(id),
-  });
-}
-  catch (error) {
+    await db.collection("properties").deleteOne({
+      _id: new ObjectId(id),
+    });
+  } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
   res.json({});
 });
 
-
 // Messages
 
-authRouter.post('/chat/:officeId/:propertyId', async (req, res) => {
+authRouter.post("/chat/:officeId/:propertyId", async (req, res) => {
   const messageData = req.body;
 
   try {
-    const messages = db.collection('messages');
+    const messages = db.collection("messages");
     const result = await messages.insertOne(messageData);
-    
+
     if (result.insertedCount === 1) {
       res.status(200).json(result.ops[0]);
     } else {
       throw new Error("Message insertion failed");
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error saving message' });
+    res.status(500).json({ error: "Error saving message" });
   }
 });
 
-authRouter.patch('/chat/:messageId/read', async (req, res) => {
+authRouter.patch("/chat/:messageId/read", async (req, res) => {
   const messageId = req.params.messageId;
 
   try {
-    const messages = db.collection('messages');
-    const result = await messages.updateOne({ _id: new ObjectId(messageId) }, { $set: { read: true } });
-    
+    const messages = db.collection("messages");
+    const result = await messages.updateOne(
+      { _id: new ObjectId(messageId) },
+      { $set: { read: true } }
+    );
+
     if (result.modifiedCount === 1) {
-      res.status(200).json({ message: 'Message marked as read' });
+      res.status(200).json({ message: "Message marked as read" });
     } else {
       throw new Error("Message update failed");
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error marking message as read' });
+    res.status(500).json({ error: "Error marking message as read" });
   }
 });
-
-
-
 
 app.use(async (req, res, next) => {
   if (req.headers.authorization) {
@@ -219,7 +217,6 @@ app.use(async (req, res, next) => {
       .collection("users")
       .findOne({ _id: new ObjectId(req.headers.authorization) });
     // exists? pass user to request
-    console.log('test')
     if (user) {
       req.user = user;
       return next();

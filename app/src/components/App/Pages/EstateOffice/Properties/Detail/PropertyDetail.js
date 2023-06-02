@@ -5,7 +5,6 @@ import PropertyInfo from "./PropertyInfo";
 import Loading from "../../../../../Design/Loading/Loading";
 import useFetch from "../../../../../../core/hooks/useFetch";
 
-
 const PropertyDetail = () => {
   const { id } = useParams();
 
@@ -25,7 +24,7 @@ const PropertyDetail = () => {
   }
 
   if (isLoading) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   return (

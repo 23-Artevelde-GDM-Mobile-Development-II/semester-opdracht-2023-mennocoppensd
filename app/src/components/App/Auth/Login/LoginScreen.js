@@ -35,17 +35,35 @@ const LoginScreen = ({ onLogin }) => {
 
   return (
     <div className={styles.containerLogin}>
-      <Link to="/" className={styles.linkBack}>&lt; Back</Link>
+      <Link to="/" className={styles.linkBack}>
+        &lt; Back
+      </Link>
       <Title className={styles.title}>Sign in</Title>
       {/* <img src="./favicon.png" alt="My App Logo" width="30" height="30" /> */}
       <div className={styles["form-container"]}>
         <form onSubmit={handleSubmit}>
           {error && <p>{error}</p>}
           <label htmlFor="username">Username / Email</label>
-          <Input name="username" value={data.username} onChange={handleChange} onLogin={onLogin} />
+          <Input
+            name="username"
+            value={data.username}
+            onChange={handleChange}
+            onLogin={onLogin}
+          />
           <label htmlFor="password">Password</label>
-          <Input name="password" type="password" value={data.password} onChange={handleChange} onLogin={onLogin} />
-          <Button className="btn-login" type="submit" disabled={isLoading} onLogin={onLogin}>
+          <Input
+            name="password"
+            type="password"
+            value={data.password}
+            onChange={handleChange}
+            onLogin={onLogin}
+          />
+          <Button
+            className="btn-login"
+            type="submit"
+            disabled={isLoading}
+            onLogin={onLogin}
+          >
             Login
           </Button>
         </form>

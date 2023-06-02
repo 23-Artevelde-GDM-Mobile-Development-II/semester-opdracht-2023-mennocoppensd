@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthRoutes, BasicRoutes, AgentRoutes, AdminRoutes, EstateRoutes } from "../../core/routes";
-import Container from "../Design/Container/Container";
+
 import AuthContainer, { useAuthContext } from "./Auth/AuthContainer";
-import LoginScreen from "./Auth/Login/LoginScreen";
-import RegisterScreen from "./Auth/Register/RegisterScreen";
 import LandingPage from "./Pages/Public/LandingPage/LandingPage";
 import SearchPage from "./Pages/Public/SearchPage/SearchPage";
 import AddProperty from "./Pages/EstateOffice/Properties/AddProperty";
@@ -56,6 +54,7 @@ const App = () => {
     <Route path="/public/:id/*" element={<PublicPropertyDetail />} />
     <Route path={BasicRoutes.Favorites} element={<AuthContainer> <FavoritesPage /> </AuthContainer>} />
     <Route path={BasicRoutes.UserChat} element={<AuthContainer> <UserChatPage /> </AuthContainer>} />
+    <Route path={BasicRoutes.ProfileDetail} element={<AuthContainer><EstateProfileDetail user={user} /></AuthContainer>} />
 
       <Route path="/" element={<Navigate to="/" />} />
       
@@ -72,7 +71,15 @@ const App = () => {
         <Route path={EstateRoutes.EstateOfficeMessagesDashboard} element={<AuthContainer><EstateOfficeMessagesDashboard /></AuthContainer>} />
         <Route path={EstateRoutes.Dashboard} element={<AuthContainer><EstateOfficeDashboard /></AuthContainer>} />
         <Route path={EstateRoutes.PropertyChats} element={<AuthContainer> <PropertyChats /> </AuthContainer>} />
-        <Route path={EstateRoutes.ProfileDetail} element={<AuthContainer><EstateProfileDetail user={user} /></AuthContainer>} />
+        <Route path={BasicRoutes.ProfileDetail} element={<AuthContainer><EstateProfileDetail user={user} /></AuthContainer>} />
+
+        <Route path={EstateRoutes.EstateOfficesOverview} element={<AuthContainer><EstateOfficesOverview user={user} /></AuthContainer>} />
+        <Route path={EstateRoutes.EstateOfficesDetail} element={<AuthContainer><EstateOfficeDetail /></AuthContainer>} />
+        <Route path={EstateRoutes.AddEstateOffice} element={<AuthContainer><AddEstateOffice /></AuthContainer>} />
+
+        <Route path={EstateRoutes.UsersOverview} element={<AuthContainer><UsersOverview /></AuthContainer>} />
+        <Route path={EstateRoutes.UsersDetail} element={<AuthContainer><UserDetail /></AuthContainer>} />
+        <Route path={EstateRoutes.AddUser} element={<AuthContainer><AddUser /></AuthContainer>} />
 </>
 )}
 {isAdmin && (

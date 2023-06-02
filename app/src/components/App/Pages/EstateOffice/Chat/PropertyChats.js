@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../../../../core/hooks/useFetch";
-
 
 const PropertyChats = () => {
   const { officeId, propertyId } = useParams();
@@ -15,7 +13,10 @@ const PropertyChats = () => {
           <h2>Chat with User {chat.userId}</h2>
           {chat.messages.map((message, index) => (
             <div key={index}>
-              <p>{message.userId === officeId ? "You" : "User"}: {message.message}</p>
+              <p>
+                {message.userId === officeId ? "You" : "User"}:{" "}
+                {message.message}
+              </p>
             </div>
           ))}
         </div>

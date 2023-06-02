@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import './ContactUs.css';
+import React, { useState } from "react";
+import "./ContactUs.css";
 
 const ContactUs = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Send the form data to your backend or perform any necessary actions
-    console.log('Form submitted:', { name, email, phone, message });
+    console.log("Form submitted:", { name, email, phone, message });
     // Clear the form fields
-    setName('');
-    setEmail('');
-    setPhone('');
-    setMessage('');
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
   };
 
   return (

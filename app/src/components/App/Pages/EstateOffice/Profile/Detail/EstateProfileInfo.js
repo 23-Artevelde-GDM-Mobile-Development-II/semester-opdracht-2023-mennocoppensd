@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-
 import { formatName } from "../../../../../../core/modules/users/utils";
 import Button from "../../../../../Design/Button/Button";
 
 const EstateProfileInfo = ({ user }) => {
-
   const navigate = useNavigate();
 
   const handleBackClick = () => {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../../Container/Container';
 import './SearchForm.css';
 
 const SearchForm = ({ categories, searchTerm, setSearchTerm }) => {
@@ -31,8 +30,6 @@ const SearchForm = ({ categories, searchTerm, setSearchTerm }) => {
     // Redirect the user to the search results page with the query parameters
     navigate(`/search${query}`);
   };
-  
-  console.log(categories);
   return (
     <form className="search-form" onSubmit={handleSearch}>
       <label>

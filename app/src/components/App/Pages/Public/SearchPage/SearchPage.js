@@ -1,5 +1,5 @@
 import Header from "../../../../Design/Public/Header/Header";
-import SearchForm from '../../../../Design/Public/SearchForm/SearchForm';
+import SearchForm from "../../../../Design/Public/SearchForm/SearchForm";
 import Footer from "../../../../Design/Public/Footer/Footer";
 import { useAuthContext } from "../../../Auth/AuthContainer";
 import PublicPropertiesOverview from "../PublicPropertiesOverview";
@@ -28,15 +28,23 @@ const SearchPage = () => {
       <Header onLogout={handleLogout} />
       <section>
         <h2>Search Properties</h2>
-        <SearchForm categories={categories} searchTerm={searchTerm} setSearchTerm={setSearchTerm} setOrder={setOrder} setSaleType={setSaleType} />
-
-        
+        <SearchForm
+          categories={categories}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setOrder={setOrder}
+          setSaleType={setSaleType}
+        />
       </section>
-      <PublicPropertiesOverview userId={user._id} searchTerm={searchTerm} order={order} saleType={saleType} />
+      <PublicPropertiesOverview
+        userId={user._id}
+        searchTerm={searchTerm}
+        order={order}
+        saleType={saleType}
+      />
       <Footer />
     </>
   );
-
 };
 
 export default SearchPage;

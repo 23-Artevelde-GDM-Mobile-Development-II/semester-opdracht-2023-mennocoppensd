@@ -7,12 +7,7 @@ import useFetch from "../../../../../core/hooks/useFetch";
 const PublicPropertyDetail = () => {
   const { id } = useParams();
 
-  const {
-    isLoading,
-    error,
-    data: property,
-  } = useFetch(`/properties/${id}`);
-
+  const { isLoading, error, data: property } = useFetch(`/properties/${id}`);
 
   if (error) {
     return <p>{error}</p>;
@@ -25,10 +20,7 @@ const PublicPropertyDetail = () => {
   return (
     <Routes>
       {/* <Header/> */}
-      <Route
-        path="public"
-        element={<PublicProperty property={property} />}
-      />
+      <Route path="public" element={<PublicProperty property={property} />} />
       <Route index element={<PropertyInfo property={property} />} />
     </Routes>
   );

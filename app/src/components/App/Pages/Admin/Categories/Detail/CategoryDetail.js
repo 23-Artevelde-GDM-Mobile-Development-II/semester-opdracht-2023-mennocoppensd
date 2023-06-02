@@ -5,7 +5,6 @@ import CategoryInfo from "./CategoryInfo";
 import useFetch from "../../../../../../core/hooks/useFetch";
 import Loading from "../../../../../Design/Loading/Loading";
 
-
 const CategoryDetail = () => {
   const { id } = useParams();
 

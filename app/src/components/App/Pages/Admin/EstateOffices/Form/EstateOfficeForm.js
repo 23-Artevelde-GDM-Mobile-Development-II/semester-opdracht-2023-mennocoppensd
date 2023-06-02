@@ -3,13 +3,18 @@ import Input from "../../../../../Design/Input/Input";
 import Button from "../../../../../Design/Button/Button";
 // import multer from 'multer';
 
-import './EstateOfficeForm.css';
+import "./EstateOfficeForm.css";
 
-const EstateOfficeForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
+const EstateOfficeForm = ({
+  onSubmit,
+  isDisabled,
+  label,
+  initialData = {},
+}) => {
   const [data, setData] = useState({
-    name: '',
-    email: '',
-    telephone: '',
+    name: "",
+    email: "",
+    telephone: "",
     image: null,
     ...initialData,
   });
@@ -17,9 +22,9 @@ const EstateOfficeForm = ({ onSubmit, isDisabled, label, initialData = {} }) => 
   const handleChange = (e) => {
     const { name, type, value, checked, files } = e.target;
 
-    if (type === 'checkbox') {
+    if (type === "checkbox") {
       setData({ ...data, [name]: checked });
-    } else if (type === 'file') {
+    } else if (type === "file") {
       setData({ ...data, [name]: files[0] });
     } else {
       setData({ ...data, [name]: value });
@@ -32,22 +37,10 @@ const EstateOfficeForm = ({ onSubmit, isDisabled, label, initialData = {} }) => 
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('email', data.email);
-    formData.append('telephone', data.telephone);
-    formData.append('image', data.image);
-
-    // try {
-    //   const response = await axios.post('/upload', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data'
-    //     }
-    //   });
-
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("telephone", data.telephone);
+    formData.append("image", data.image);
 
     onSubmit(data);
   };

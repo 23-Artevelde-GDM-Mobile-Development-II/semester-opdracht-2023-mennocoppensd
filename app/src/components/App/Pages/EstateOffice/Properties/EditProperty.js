@@ -5,7 +5,6 @@ import useMutation from "../../../../../core/hooks/useMutation";
 import Title from "../../../../Design/Title/Title";
 import Button from "../../../../Design/Button/Button";
 
-
 const EditProperty = ({ property, onUpdate }) => {
   const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();

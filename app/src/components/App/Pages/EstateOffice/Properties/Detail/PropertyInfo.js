@@ -2,9 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../../../Design/Button/Button";
 import { formatName } from "../../../../../../core/modules/properties/utils";
 
-
 const PropertyInfo = ({ property }) => {
-
   const navigate = useNavigate();
 
   const handleBackClick = () => {

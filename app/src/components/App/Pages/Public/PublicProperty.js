@@ -3,7 +3,6 @@ import Title from "../../../Design/Title/Title";
 import Button from "../../../Design/Button/Button";
 
 const PublicProperty = ({ property }) => {
-
   const navigate = useNavigate();
 
   const handleBackClick = () => {

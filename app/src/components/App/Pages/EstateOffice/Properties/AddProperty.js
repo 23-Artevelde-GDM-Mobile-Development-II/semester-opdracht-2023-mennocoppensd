@@ -10,7 +10,6 @@ const AddProperty = () => {
   const { isLoading, error, mutate } = useMutation();
   const { data: categories = [] } = useFetch("/categories");
 
-
   const handleSubmit = (data) => {
     mutate(`${process.env.REACT_APP_API_URL}/properties`, {
       method: "POST",

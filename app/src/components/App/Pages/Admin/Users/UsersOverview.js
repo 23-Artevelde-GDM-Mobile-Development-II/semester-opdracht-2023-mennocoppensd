@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useFetch from "../../../../../core/hooks/useFetch";
 import { formatName } from "../../../../../core/modules/users/utils";
 import Button from "../../../../Design/Button/Button";
@@ -8,15 +8,15 @@ import Loading from "../../../../Design/Loading/Loading";
 import Header from "../../../../Design/Public/Header/Header";
 import DeleteUserButton from "./Delete/DeleteUserButton";
 
-
 const UsersOverview = () => {
-  const {
-    isLoading,
-    error,
-    invalidate,
-    data: users,
-  } = useFetch("/users");
- 
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
+
+  const { isLoading, error, invalidate, data: users } = useFetch("/users");
+
   if (error) {
     return <p>{error}</p>;
   }
@@ -32,8 +32,8 @@ const UsersOverview = () => {
   console.log(users);
   return (
     <>
-    <Header />
-    <Link to="/admin" >&lt; Back</Link>
+      <Header />
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <h1>Users</h1>
       <div className="flex flex-end">
         <Button color="primary" href="add">
@@ -43,12 +43,15 @@ const UsersOverview = () => {
       <List>
         {users.map((user) => (
           <ListItem
-          href={`/users/${String(user._id)}`} // Convert user._id to a string
-          key={String(user._id)} // Convert user._id to a string
-          img={user.image}
-          title={`${formatName(user)} - ${user.role}`} // Include the user's role in the title
-        >
-          <DeleteUserButton id={String(user._id)} onSuccess={handleDeleteSuccess} /> 
+            href={`/users/${String(user._id)}`} // Convert user._id to a string
+            key={String(user._id)} // Convert user._id to a string
+            img={user.image}
+            title={`${formatName(user)} - ${user.role}`} // Include the user's role in the title
+          >
+            <DeleteUserButton
+              id={String(user._id)}
+              onSuccess={handleDeleteSuccess}
+            />
           </ListItem>
         ))}
       </List>

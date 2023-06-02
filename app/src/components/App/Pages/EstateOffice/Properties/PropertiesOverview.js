@@ -35,7 +35,6 @@ const PropertiesOverview = () => {
     invalidate();
   };
 
-  console.log(properties);
   return (
     <>
       <Header />
