@@ -1,8 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useMutation from "../../../../../core/hooks/useMutation";
 import Title from "../../../../Design/Title/Title";
 import PropertyForm from "./Form/PropertyForm";
-import { useEffect, useState } from "react";
 import useFetch from "../../../../../core/hooks/useFetch";
 import Button from "../../../../Design/Button/Button";
 

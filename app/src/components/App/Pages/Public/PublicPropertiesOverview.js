@@ -56,7 +56,7 @@ const PublicPropertiesOverview = ({ userId, favorites, searchTerm, order, saleTy
     setSelectedProperties(newProperties);
 
     mutate(
-      `/favorites/${userId}/${propertyId}`,
+      `${process.env.REACT_APP_API_URL}/favorites/${propertyId}`,
       {
         method: newProperties[propertyIndex].favorited ? 'POST' : 'DELETE',
       },

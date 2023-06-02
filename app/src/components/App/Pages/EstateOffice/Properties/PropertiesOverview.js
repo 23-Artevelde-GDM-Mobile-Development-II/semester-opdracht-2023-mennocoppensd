@@ -1,6 +1,6 @@
 import DeletePropertyButton from "./Delete/DeletePropertyButton";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useFetch from "../../../../../core/hooks/useFetch";
 import Header from "../../../../Design/Public/Header/Header";
 import Loading from "../../../../Design/Loading/Loading";

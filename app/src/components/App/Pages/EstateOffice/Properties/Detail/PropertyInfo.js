@@ -1,14 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../../../Design/Button/Button";
 import { formatName } from "../../../../../../core/modules/properties/utils";
-import { useAuthContext } from "../../../../Auth/AuthContainer";
 
 
 const PropertyInfo = ({ property }) => {
-  const { user } = useAuthContext() || { user: null };
-  
-  const isAdmin = user?.role === "ADMIN";
-  const isEstateOffice = user?.role === "ESTATE OFFICE";
+
   const navigate = useNavigate();
 
   const handleBackClick = () => {

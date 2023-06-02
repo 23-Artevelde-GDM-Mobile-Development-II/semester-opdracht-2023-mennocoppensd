@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Title from "../../../Design/Title/Title";
 import Button from "../../../Design/Button/Button";
 
