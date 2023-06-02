@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import PropertyForm from "./Form/PropertyForm";
 import useMutation from "../../../../../core/hooks/useMutation";

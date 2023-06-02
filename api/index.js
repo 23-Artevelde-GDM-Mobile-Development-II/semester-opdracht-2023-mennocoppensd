@@ -31,6 +31,9 @@ passport.use("jwt", JwtStrategy);
 const client = await initClient();
 const db = client.db();
 
+// Creating the compound unique index for the 'favorites' collection
+db.collection("favorites").createIndex({ userId: 1, propertyId: 1 }, { unique: true });
+
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -206,37 +209,6 @@ authRouter.patch('/chat/:messageId/read', async (req, res) => {
   }
 });
 
-// route handler on the server
-authRouter.get("/favorites", async (req, res) => {
-  const userId = req.user._id;  // assuming user's ID is attached to req.user object
-  const favorites = await db.collection("favorites").find({ userId: new ObjectId(userId) }).toArray();
-  
-  // Map the favorites array to an array of propertyId values
-  const favoriteIds = favorites.map(favorite => favorite.propertyId);
-  
-  res.json(favoriteIds);
-});
-
-// define a route to add a property to favorites
-authRouter.post("/favorites/:propertyId", async (req, res) => {
-  const userId = req.user._id;  // assuming user's ID is attached to req.user object
-  const propertyId = req.params.propertyId;
-  
-  const favorite = { userId: new ObjectId(userId), propertyId: new ObjectId(propertyId) };
-  await db.collection("favorites").insertOne(favorite);
-  
-  res.json(favorite);
-});
-
-// define a route to remove a property from favorites
-authRouter.delete("/favorites/:propertyId", async (req, res) => {
-  const userId = req.user._id;  // assuming user's ID is attached to req.user object
-  const propertyId = req.params.propertyId;
-  
-  await db.collection("favorites").deleteOne({ userId: new ObjectId(userId), propertyId: new ObjectId(propertyId) });
-  
-  res.json({ message: 'Favorite removed' });
-});
 
 
 

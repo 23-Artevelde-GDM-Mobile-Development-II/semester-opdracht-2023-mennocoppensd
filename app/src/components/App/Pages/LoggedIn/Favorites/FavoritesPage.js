@@ -1,20 +1,38 @@
+import React, { useEffect, useState } from 'react';
 import useFetch from "../../../../../core/hooks/useFetch";
-import { formatName } from "../../../../../core/modules/categories/utils";
+import useMutation from "../../../../../core/hooks/useMutation";
+import { formatName } from "../../../../../core/modules/properties/utils";
 import List from "../../../../Design/List/List";
 import ListItem from "../../../../Design/List/ListItem";
 import Loading from "../../../../Design/Loading/Loading";
 import { useAuthContext } from "../../../Auth/AuthContainer";
 
+import './FavoritesPage.css';
+import Header from '../../../../Design/Public/Header/Header';
+
 const FavoritesPage = () => {
   const { user } = useAuthContext() || { user: null };
   const userId = user._id;
   const { isLoading, error, data: favoriteIds } = useFetch(`/favorites/${userId}`);
-
-  // This hook will fetch all the properties, which we'll then filter based on the favorites
   const { data: properties } = useFetch("/properties");
-  
-  console.log('userId:', userId);
-  console.log('favoriteIds:', favoriteIds);
+  const { mutate } = useMutation();
+
+  const handleFavoriteClick = (propertyId) => {
+    const propertyIndex = favoriteProperties.findIndex(property => property._id === propertyId);
+    const newProperties = [...favoriteProperties];
+    newProperties[propertyIndex].favorited = !newProperties[propertyIndex].favorited;
+
+    mutate(
+      `${process.env.REACT_APP_API_URL}/favorites/${propertyId}`,
+      {
+        method: newProperties[propertyIndex].favorited ? 'POST' : 'DELETE',
+      },
+      {
+        onSuccess: () => {},
+        onError: (error) => { console.error(error); },
+      }
+    );
+  };
 
   if (error) {
     return <p>{error}</p>;
@@ -28,10 +46,10 @@ const FavoritesPage = () => {
     favoriteIds.some(favorite => favorite.propertyId === property._id)
   );
 
-
-
   return (
+  
     <div>
+      <Header />
       <h1>Favorites</h1>
       <List>
         {favoriteProperties.map((property) => (
@@ -40,6 +58,9 @@ const FavoritesPage = () => {
             key={property._id}
             img={property.image}
             title={formatName(property)}
+            favorited={property.favorited}
+            handleFavoriteClick={() => handleFavoriteClick(property._id)}
+            isProperty={true} // set isProperty to true for each property
           />
         ))}
       </List>

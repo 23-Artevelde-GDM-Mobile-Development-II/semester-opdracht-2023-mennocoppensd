@@ -1,0 +1,15 @@
+.favorited {
+    color: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 30px;
+  }
+
+  .list-item .fa-heart {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 30px;    
+
+  }
