@@ -6,10 +6,9 @@ const registerMiddleware = (app) => {
   // use CORS middleware
   // if in production, allow requests only from APP_URL
   if (process.env.ENV === "production") {
-
     const corsOptions = {
       origin: `${process.env.APP_URL}${process.env.APP_PORT}`,
-      
+
       optionsSuccessStatus: 200, //
     };
     app.use(cors(corsOptions));
@@ -17,12 +16,10 @@ const registerMiddleware = (app) => {
     // if in development, allow all requests
     app.use(cors());
   }
-  
+
   // use bodyParser middleware to parse request bodies as JSON
   app.use(bodyParser.json());
 };
-
-
 
 // export the middleware function
 export { registerMiddleware };

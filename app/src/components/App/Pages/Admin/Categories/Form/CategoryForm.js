@@ -3,20 +3,20 @@ import Input from "../../../../../Design/Input/Input";
 import Button from "../../../../../Design/Button/Button";
 // import multer from 'multer';
 
-import './CategoryForm.css';
+import "./CategoryForm.css";
 
 const CategoryForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
   const [data, setData] = useState({
-    name: '',
+    name: "",
     ...initialData,
   });
 
   const handleChange = (e) => {
     const { name, type, value, checked, files } = e.target;
 
-    if (type === 'checkbox') {
+    if (type === "checkbox") {
       setData({ ...data, [name]: checked });
-    } else if (type === 'file') {
+    } else if (type === "file") {
       setData({ ...data, [name]: files[0] });
     } else {
       setData({ ...data, [name]: value });
@@ -29,19 +29,7 @@ const CategoryForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('name', data.name);
-
-    // try {
-    //   const response = await axios.post('/upload', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data'
-    //     }
-    //   });
-
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    formData.append("name", data.name);
 
     onSubmit(data);
   };
@@ -50,7 +38,7 @@ const CategoryForm = ({ onSubmit, isDisabled, label, initialData = {} }) => {
     <form onSubmit={handleSubmit} className="category-form">
       <label htmlFor="name">Name</label>
       <Input name="name" value={data.name} onChange={handleChange} />
-  
+
       <br />
 
       <Button type="submit" disabled={isDisabled}>

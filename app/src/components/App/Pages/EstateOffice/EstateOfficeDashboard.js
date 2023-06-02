@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../../Design/Public/Header/Header";
 import { FaCog } from "react-icons/fa";
 import "./EstateOfficeDashboard.css";
+import Footer from "../../../Design/Public/Footer/Footer";
 
 const EstateOfficeDashboard = () => {
   return (
@@ -11,14 +12,20 @@ const EstateOfficeDashboard = () => {
       <div className="admin-dashboard-container">
         <h1 className="admin-dashboard-title">Estate Office Dashboard</h1>
         <div className="admin-dashboard-content">
-        <Link to={{ pathname: "/properties", state: { from: "/office" } }} className="admin-dashboard-tile">
+          <Link
+            to={{ pathname: "/properties", state: { from: "/office" } }}
+            className="admin-dashboard-tile"
+          >
             <span className="admin-dashboard-tile-icon">🏠</span>
             <h2 className="admin-dashboard-tile-title">Properties</h2>
             <p className="admin-dashboard-tile-text">
               View and manage your properties
             </p>
           </Link>
-          <Link to="/office/:officeId/dashboard" className="admin-dashboard-tile">
+          <Link
+            to="/office/:officeId/dashboard"
+            className="admin-dashboard-tile"
+          >
             <span className="admin-dashboard-tile-icon">💬</span>
             <h2 className="admin-dashboard-tile-title">Messages</h2>
             <p className="admin-dashboard-tile-text">
@@ -41,12 +48,16 @@ const EstateOfficeDashboard = () => {
           </Link>
         </div>
         <div className="admin-dashboard-other-options">
-          <Link to="/office/settings/:id" className="admin-dashboard-other-option">
+          <Link
+            to="/office/settings/:id"
+            className="admin-dashboard-other-option"
+          >
             <FaCog className="admin-dashboard-other-option-icon" />
             Settings
           </Link>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

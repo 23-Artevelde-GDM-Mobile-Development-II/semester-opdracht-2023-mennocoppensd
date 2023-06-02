@@ -1,12 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 import EstateOfficeForm from "./Form/EstateOfficeForm";
 import Title from "../../../../Design/Title/Title";
 import useMutation from "../../../../../core/hooks/useMutation";
+import Button from "../../../../Design/Button/Button";
 
 const AddEstateOffice = () => {
   const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
+
   const { isLoading, error, mutate } = useMutation();
 
   const handleSubmit = (data) => {
@@ -21,7 +26,7 @@ const AddEstateOffice = () => {
 
   return (
     <>
-      <Link to="/admin">&lt; Back</Link>
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <Title>Add estate office</Title>
       {error && <p>{error}</p>}
       <EstateOfficeForm

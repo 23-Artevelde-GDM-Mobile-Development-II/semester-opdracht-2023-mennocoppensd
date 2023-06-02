@@ -1,8 +1,6 @@
-import { Route, Routes } from "react-router-dom";
 import useFetch from "../../../../../../core/hooks/useFetch";
 import Loading from "../../../../../Design/Loading/Loading";
 import EditProfile from "../EditProfile";
-import ProfileInfo from "./ProfileInfo";
 import Header from "../../../../../Design/Public/Header/Header";
 
 const ProfileDetail = ({ user }) => {
@@ -16,7 +14,6 @@ const ProfileDetail = ({ user }) => {
     // data: userJSON,
   } = useFetch(`/users/${userId}`);
 
-  console.log(user); // log the error variable
   const handleUpdate = () => {
     invalidate();
   };
@@ -31,9 +28,9 @@ const ProfileDetail = ({ user }) => {
 
   return (
     <>
-    <Header />
+      <Header />
       <EditProfile user={user} onUpdate={handleUpdate} role={user.role} />
-      </>
+    </>
   );
 };
 

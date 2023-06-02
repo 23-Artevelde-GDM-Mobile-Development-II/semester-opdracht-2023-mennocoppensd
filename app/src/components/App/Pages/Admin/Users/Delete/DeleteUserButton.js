@@ -1,8 +1,6 @@
 import useMutation from "../../../../../../core/hooks/useMutation";
 import Button from "../../../../../Design/Button/Button";
 
-
-
 const DeleteUserButton = ({ onSuccess, id }) => {
   const { isLoading, error, mutate } = useMutation();
 

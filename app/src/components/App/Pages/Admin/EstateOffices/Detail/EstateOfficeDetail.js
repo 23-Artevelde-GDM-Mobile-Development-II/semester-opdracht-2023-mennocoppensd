@@ -5,7 +5,6 @@ import EstateOfficeInfo from "./EstateOfficeInfo";
 import useFetch from "../../../../../../core/hooks/useFetch";
 import Loading from "../../../../../Design/Loading/Loading";
 
-
 const EstateOfficeDetail = () => {
   const { id } = useParams();
 
@@ -32,7 +31,12 @@ const EstateOfficeDetail = () => {
     <Routes>
       <Route
         path="edit"
-        element={<EditEstateOffice estateOffice={estateOffice} onUpdate={handleUpdate} />}
+        element={
+          <EditEstateOffice
+            estateOffice={estateOffice}
+            onUpdate={handleUpdate}
+          />
+        }
       />
       <Route index element={<EstateOfficeInfo estateOffice={estateOffice} />} />
     </Routes>

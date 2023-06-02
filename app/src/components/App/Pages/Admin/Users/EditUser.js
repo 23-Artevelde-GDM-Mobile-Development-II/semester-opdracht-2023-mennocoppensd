@@ -1,12 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import UserForm from "./Form/UserForm";
 
 import Title from "../../../../Design/Title/Title";
 import useMutation from "../../../../../core/hooks/useMutation";
+import Button from "../../../../Design/Button/Button";
 
 const EditUser = ({ user, onUpdate }) => {
   const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
   const { isLoading, error, mutate } = useMutation();
 
   const handleSubmit = (data) => {
@@ -22,7 +27,7 @@ const EditUser = ({ user, onUpdate }) => {
 
   return (
     <>
-      <Link to="/admin">&lt; Back</Link>
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <Title>Edit user</Title>
       {error && <p>{error}</p>}
       <UserForm

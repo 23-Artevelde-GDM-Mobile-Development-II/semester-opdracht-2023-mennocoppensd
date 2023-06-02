@@ -26,7 +26,7 @@ const RegisterScreen = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-console.log(process.env.REACT_APP_API_URL);
+    console.log(process.env.REACT_APP_API_URL);
 
     mutate(`${process.env.REACT_APP_API_URL}/register`, {
       method: "POST",
@@ -36,28 +36,38 @@ console.log(process.env.REACT_APP_API_URL);
       },
     });
   };
-  
 
   return (
     <div className={styles.containerRegister}>
-            <Link to="/" className={styles.linkBack}>&lt; Back</Link>
+      <Link to="/" className={styles.linkBack}>
+        &lt; Back
+      </Link>
       <Title className={styles.title}>Register</Title>
       <img src="./favicon.png" alt="My App Logo" width="30" height="30" />
       <div className={styles["form-container"]}>
         <form onSubmit={handleSubmit}>
           {error && <p>{error}</p>}
           <label htmlFor="username">Username / Email</label>
-          <Input name="username" value={data.username} onChange={handleChange} />
+          <Input
+            name="username"
+            value={data.username}
+            onChange={handleChange}
+          />
           <label htmlFor="password">Password</label>
-          <Input name="password" type="password" value={data.password} onChange={handleChange} />
-          <Button className="btn-register"type="submit" disabled={isLoading}>
+          <Input
+            name="password"
+            type="password"
+            value={data.password}
+            onChange={handleChange}
+          />
+          <Button className="btn-register" type="submit" disabled={isLoading}>
             Register
           </Button>
         </form>
       </div>
       <div className={styles["signin-link-container"]}>
         <p>
-         Already have an account? <Link to="/login">Sign in here</Link>
+          Already have an account? <Link to="/login">Sign in here</Link>
         </p>
       </div>
     </div>

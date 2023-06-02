@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 
-
 import UserForm from "./Form/UserForm";
 import Title from "../../../../Design/Title/Title";
 import useMutation from "../../../../../core/hooks/useMutation";
@@ -24,11 +23,7 @@ const AddUser = () => {
       <Link to="/">&lt; Back</Link>
       <Title>Add user</Title>
       {error && <p>{error}</p>}
-      <UserForm
-        onSubmit={handleSubmit}
-        isDisabled={isLoading}
-        label="Create"
-      />
+      <UserForm onSubmit={handleSubmit} isDisabled={isLoading} label="Create" />
     </>
   );
 };

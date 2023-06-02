@@ -265,60 +265,68 @@ const registerAdminRoutes = (app) => {
   });
 
   // define a route to add a property to favorites
-adminRouter.post("/favorites/:id", async (req, res) => {
-  const propertyId = req.params.id;
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  const userId = decodedToken.id;
+  adminRouter.post("/favorites/:id", async (req, res) => {
+    const propertyId = req.params.id;
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.id;
 
-  console.log(userId);
-  const favorite = {
-    userId: new ObjectId(userId),
-    propertyId: new ObjectId(propertyId),
-  };
+    const favorite = {
+      userId: new ObjectId(userId),
+      propertyId: new ObjectId(propertyId),
+    };
 
-  try {
-    await db.collection("favorites").insertOne(favorite);
-    res.json(favorite);
-  } catch (err) {
-    if (err.code === 11000) { // duplicate key error
-      res.status(400).json({ message: 'You have already favorited this property.' });
-    } else {
+    try {
+      await db.collection("favorites").insertOne(favorite);
+      res.json(favorite);
+    } catch (err) {
+      if (err.code === 11000) {
+        // duplicate key error
+        res
+          .status(400)
+          .json({ message: "You have already favorited this property." });
+      } else {
+        console.error(err);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    }
+  });
+
+  // define a route to remove a property from favorites
+  adminRouter.delete("/favorites/:propertyId", async (req, res) => {
+    const propertyId = req.params.propertyId;
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.id;
+
+    try {
+      const result = await db
+        .collection("favorites")
+        .deleteOne({
+          userId: new ObjectId(userId),
+          propertyId: new ObjectId(propertyId),
+        });
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ message: "Favorite not found" });
+      }
+      res.json({ message: "Favorite removed" });
+    } catch (err) {
       console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: "Internal server error" });
     }
-  }
-});
+  });
 
-// define a route to remove a property from favorites
-adminRouter.delete("/favorites/:propertyId", async (req, res) => {
-  const propertyId = req.params.propertyId;
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  const userId = decodedToken.id;
+  // route handler on the server
+  adminRouter.get("/favorites/:userId", async (req, res) => {
+    const userId = req.params.userId;
 
-  try {
-    const result = await db.collection("favorites").deleteOne({ userId: new ObjectId(userId), propertyId: new ObjectId(propertyId) });
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: 'Favorite not found' });
-    }
-    res.json({ message: 'Favorite removed' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
+    const favorites = await db
+      .collection("favorites")
+      .find({ userId: new ObjectId(userId) })
+      .toArray();
 
-
-// route handler on the server
-adminRouter.get("/favorites/:userId", async (req, res) => {
-  const userId = req.params.userId;
-
-  const favorites = await db.collection("favorites").find({ userId: new ObjectId(userId) }).toArray();
-
-  res.json(favorites);
-});
-
+    res.json(favorites);
+  });
 
   app.get("/users", async (req, res) => {
     const users = await db.collection("users").find().toArray();
@@ -327,7 +335,6 @@ adminRouter.get("/favorites/:userId", async (req, res) => {
 
   // define a route to get all categories
   adminRouter.get("/categories", async (req, res) => {
-    console.log(req.category);
     const categories = await db.collection("categories").find().toArray();
     res.json(categories);
   });

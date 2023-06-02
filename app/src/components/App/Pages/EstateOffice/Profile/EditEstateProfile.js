@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Title from "../../../../Design/Title/Title";
 import useMutation from "../../../../../core/hooks/useMutation";
 import ProfileForm from "./Form/EstateProfileForm";
 import Button from "../../../../Design/Button/Button";
 
-const EditEstateProfile = ({ user, onUpdate, role }) => {
+const EditEstateProfile = ({ user, onUpdate }) => {
   const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();
 

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-
 import { formatName } from "../../../../../../core/modules/categories/utils";
 import Button from "../../../../../Design/Button/Button";
 
