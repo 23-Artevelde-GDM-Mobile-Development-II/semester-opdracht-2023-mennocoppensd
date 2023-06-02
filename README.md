@@ -73,3 +73,11 @@ User Example:
 
  username: Menno
   password: test
+
+Office Example:
+
+username: Office
+password: secret
+
+username: Admin
+password: secret
