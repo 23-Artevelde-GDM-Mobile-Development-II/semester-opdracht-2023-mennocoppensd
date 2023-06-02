@@ -7,6 +7,7 @@ const DeletePropertyButton = ({ onSuccess, id }) => {
   const { isLoading, error, mutate } = useMutation();
 
   const handleClick = () => {
+    console.log(id);
     mutate(`${process.env.REACT_APP_API_URL}/properties/${id}`, {
       method: "DELETE",
       onSuccess: () => {
@@ -14,7 +15,7 @@ const DeletePropertyButton = ({ onSuccess, id }) => {
       },
     });
   };
-
+  
   console.log(error);
 
   return (

@@ -45,3 +45,18 @@
 .nav-menu ul li a:hover {
   color: #7F5AF0;
 }
+
+li {
+  list-style: none;
+}
+
+ li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding-left: 2em;
+}
+
+li a:hover {
+  color: #7F5AF0;
+}

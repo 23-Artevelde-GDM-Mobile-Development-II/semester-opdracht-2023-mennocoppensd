@@ -3,20 +3,32 @@ import { formatName } from "../../../../../core/modules/categories/utils";
 import List from "../../../../Design/List/List";
 import ListItem from "../../../../Design/List/ListItem";
 import Loading from "../../../../Design/Loading/Loading";
-
+import { useAuthContext } from "../../../Auth/AuthContainer";
 
 const FavoritesPage = () => {
-  const { isLoading, error, data: properties } = useFetch("/properties");
+  const { user } = useAuthContext() || { user: null };
+  const userId = user._id;
+  const { isLoading, error, data: favoriteIds } = useFetch(`/favorites/${userId}`);
+
+  // This hook will fetch all the properties, which we'll then filter based on the favorites
+  const { data: properties } = useFetch("/properties");
+  
+  console.log('userId:', userId);
+  console.log('favoriteIds:', favoriteIds);
 
   if (error) {
     return <p>{error}</p>;
   }
 
-  if (isLoading) {
+  if (isLoading || !properties) {
     return <Loading />;
   }
 
-  const favoriteProperties = properties.filter(property => property.favorited);
+  const favoriteProperties = properties.filter(property =>
+    favoriteIds.some(favorite => favorite.propertyId === property._id)
+  );
+
+
 
   return (
     <div>

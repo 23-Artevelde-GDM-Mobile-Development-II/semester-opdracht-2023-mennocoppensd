@@ -87,6 +87,8 @@ const App = () => {
         <Route path={AdminRoutes.UsersOverview} element={<AuthContainer><UsersOverview /></AuthContainer>} />
         <Route path={AdminRoutes.UsersDetail} element={<AuthContainer><UserDetail /></AuthContainer>} />
         <Route path={AdminRoutes.AddUser} element={<AuthContainer><AddUser /></AuthContainer>} />
+        <Route path={EstateRoutes.AddProperty} element={<AuthContainer><AddProperty /></AuthContainer>} />  
+        <Route path={EstateRoutes.PropertiesDetail} element={<AuthContainer><PropertyDetail /></AuthContainer>} />
 
         <Route path={AdminRoutes.ProfileDetail} element={<AuthContainer><ProfileDetail user={user}/></AuthContainer>} />
 

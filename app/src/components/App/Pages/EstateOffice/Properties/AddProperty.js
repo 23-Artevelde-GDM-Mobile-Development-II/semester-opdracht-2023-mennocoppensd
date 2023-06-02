@@ -4,6 +4,7 @@ import Title from "../../../../Design/Title/Title";
 import PropertyForm from "./Form/PropertyForm";
 import { useEffect, useState } from "react";
 import useFetch from "../../../../../core/hooks/useFetch";
+import Button from "../../../../Design/Button/Button";
 
 const AddProperty = () => {
   const navigate = useNavigate();
@@ -21,9 +22,13 @@ const AddProperty = () => {
     });
   };
 
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
+
   return (
     <>
-      <Link to="/admin">&lt; Back</Link>
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <Title>Add property</Title>
       {error && <p>{error}</p>}
       <PropertyForm

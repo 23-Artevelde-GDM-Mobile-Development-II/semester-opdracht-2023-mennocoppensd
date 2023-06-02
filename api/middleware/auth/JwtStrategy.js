@@ -17,7 +17,7 @@ export default new JwtStrategy(
         // check if user with id exists
         const user = await db
           .collection("users")
-          .findOne({ _id: ObjectId(payload.id) });
+          .findOne({ _id: new ObjectId(payload.id) });
         if (user) {
           return done(null, user);
         } else {

@@ -1,10 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Title from "../../../Design/Title/Title";
+import Button from "../../../Design/Button/Button";
 
 const PublicProperty = ({ property }) => {
+
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1); // navigate to the previous page in the browser history
+  };
   return (
     <>
-      <Link to="/">&lt; Back</Link>
+      <Button onClick={handleBackClick}>&lt; Back</Button>
       <Title>{property.title}</Title>
       <p>{property.description}</p>
       <p>{property.price}</p>
